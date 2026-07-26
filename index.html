@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análisis del Rol Directivo Escolar en Chile: Entre lo Urgente y lo Importante</title>
+  <meta name="description" content="Taller de Validación Cualitativa desde la experiencia situada. Proyecto VcM VRIMF 2631 - Universidad de Concepción.">
+  <link rel="stylesheet" href="presentation.css">
+  <!-- Favicon/Icon representation -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏫</text></svg>">
+  <!-- Three.js Library for MagicRings shader effect -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="theme-vibrant">
+
+  <!-- Main Viewport containing slides and presentation tools -->
+  <main class="viewport">
+    
+    <div id="presentation-outer" class="presentation-outer">
+      
+      <!-- Slide Presentation Frame -->
+      <article id="presentation-container" class="presentation-container">
+        
+        <!-- Header Progress bar indicating presentation completion -->
+        <div class="progress-bar-container" aria-hidden="true">
+          <div id="progress-bar-fill" class="progress-bar-fill"></div>
+        </div>
+
+        <!-- Decorative background shapes for Tema Vibrante Geométrico -->
+        <div class="vibrant-shapes" aria-hidden="true">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+          <div class="shape shape-4"></div>
+        </div>
+
+        <!-- Decorative background grids for Tema Minimalista Monocromático -->
+        <div class="minimalist-grids" aria-hidden="true">
+          <div class="grid-line-v" style="left: 15%;"></div>
+          <div class="grid-line-v" style="left: 50%;"></div>
+          <div class="grid-line-v" style="left: 85%;"></div>
+          <div class="grid-line-h" style="top: 15%;"></div>
+          <div class="grid-line-h" style="top: 85%;"></div>
+        </div>
+
+        <div class="slide-deck">
+          
+          <!-- DIAPOSITIVA 1: Portada y Propósito (NO MODIFICAR) -->
+          <section id="slide-1" class="slide active slide-cover">
+            <div class="cover-grid">
+              
+              <!-- Left Column: Title and Metadata -->
+              <div class="cover-left">
+                <header class="cover-top-meta">
+                  <div class="udec-logo-container" aria-label="Universidad de Concepción logo">
+                    <!-- Official Faculty Logo with inline styling to prevent layout issues -->
+                    <img src="fac_educacion-color.png" alt="Facultad de Educación Universidad de Concepción" class="fac-educ-logo-main" style="height: 66px !important; width: auto !important; display: block !important;">
+                  </div>
+                  <span class="project-tag">Proyecto VRIMF 2631</span>
+                </header>
+
+                <div class="cover-title-container">
+                  <div class="giant-number-2">2°</div>
+                  <h1 class="cover-main-title">Conversatorio de Validación Cualitativa:</h1>
+                  <p class="cover-sub-title">Co-construyendo desde la Experiencia Situada</p>
+                </div>
+
+                <!-- Declaración de Propósito y Objetivo General on Cover -->
+                <div class="cover-purpose-container">
+                  <div class="card cover-purpose-box">
+                    <strong>Declaración de Propósito</strong>
+                    <p>Este segundo encuentro del Proyecto de Vinculación con el Medio (VcM) es un espacio de diálogo horizontal, libre de evaluación, diseñado exclusivamente para escuchar, validar y enriquecer nuestras propuestas a partir del inmenso valor de tu experiencia práctica y situada.</p>
+                  </div>
+                  
+                  <div class="card cover-purpose-box">
+                    <strong>Objetivo General</strong>
+                    <p>Validar cualitativamente y co-diseñar la propuesta de análisis del rol directivo escolar mediante el análisis reflexivo de las vivencias y aprendizajes recopilados en esta segunda etapa del proyecto VcM.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: Sunset Clocktower Image (Campanil UdeC) -->
+              <div class="cover-right imagen-campanil">
+                <div class="cover-image-container">
+                  <img src="Campanil-udec.jpg" alt="Campanil de la Universidad de Concepción" class="cover-image">
+                  <div class="cover-image-overlay"></div>
+                  <div class="cover-image-tag">
+                    <strong>Agradecimientos Especiales</strong>
+                    <p>A las Directoras y los Directores: Cristina Concha, María José Retamal, Catherine Olivares e Ignacio Villagrán, por compartir su labor diaria.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA 2: Coordinación y Equipo de Investigación (NO MODIFICAR) -->
+          <section id="slide-2" class="slide">
+            <header class="slide-header">
+              <div class="slide-header-left">
+                <span class="slide-category">Equipo de Trabajo</span>
+                <h2>Coordinación y Equipo de Investigación</h2>
+              </div>
+            </header>
+            <div class="slide-content">
+              <div class="slide-team-layout">
+                
+                <!-- Académicos Responsables (Top Row) -->
+                <div class="team-section">
+                  <h3 class="team-section-title">Académicos Responsables</h3>
+                  <div class="academics-grid">
+                    <div class="card team-card-large">
+                      <div class="team-photo-circle-wrapper">
+                        <img src="jorge Rojas.webp" alt="Ph.D. Jorge Rojas Bravo" class="team-photo-circle">
+                      </div>
+                      <div class="team-card-info">
+                        <h4>Ph.D. Jorge Rojas Bravo</h4>
+                        <p class="role-primary">Responsable Principal</p>
+                      </div>
+                    </div>
+                    
+                    <div class="card team-card-large">
+                      <div class="team-photo-circle-wrapper">
+                        <img src="jorge_ulloa_9611844b92.webp" alt="Dr. Jorge Ulloa" class="team-photo-circle">
+                      </div>
+                      <div class="team-card-info">
+                        <h4>Dr. Jorge Ulloa</h4>
+                        <p class="role-primary">Asesor Experto</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Investigadores en Formación (Bottom Row) -->
+                <div class="team-section">
+                  <h3 class="team-section-title">Investigadores en Formación</h3>
+                  <div class="researchers-grid">
+                    <div class="card team-card-small">
+                      <div class="researcher-photo-circle-wrapper">
+                        <img src="ely.png" alt="Elizabeth Zapata" class="researcher-photo">
+                      </div>
+                      <div class="team-card-info">
+                        <h4>Elizabeth Zapata</h4>
+                      </div>
+                    </div>
+
+                    <div class="card team-card-small">
+                      <div class="researcher-photo-circle-wrapper">
+                        <img src="jorge.jpg" alt="Jorge Cuevas" class="researcher-photo">
+                      </div>
+                      <div class="team-card-info">
+                        <h4>Jorge Cuevas</h4>
+                      </div>
+                    </div>
+                    
+                    <div class="card team-card-small">
+                      <div class="researcher-photo-circle-wrapper">
+                        <img src="nico.png" alt="Nicolás Tamarín" class="researcher-photo">
+                      </div>
+                      <div class="team-card-info">
+                        <h4>Nicolás Tamarín</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Small project metadata footer -->
+                <footer class="team-metadata-footer">
+                  <span><strong>Programa:</strong> Doctorado en Educación UdeC</span>
+                  <span class="meta-dot">•</span>
+                  <span><strong>Curso:</strong> Investigación Cualitativa I</span>
+                  <span class="meta-dot">•</span>
+                  <span><strong>Financiamiento:</strong> Proyecto VcM VRIMF 2631</span>
+                  <span class="meta-dot">•</span>
+                  <span><strong>Metodología:</strong> Shadowing Etnográfico</span>
+                </footer>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA 3: El Propósito y el Mapa General (NO MODIFICAR) -->
+          <section id="slide-3" class="slide">
+            <header class="slide-header">
+              <div class="slide-header-left">
+                <span class="slide-category">EL ESPEJO METODOLÓGICO</span>
+                <h2>Propósito y Volumen de la Realidad</h2>
+              </div>
+            </header>
+            <div class="slide-content" style="height: calc(100% - 20px);">
+              <div class="bento-slide-3">
+                
+                <!-- Ficha rectangular de pie con números súper grandes -->
+                <div class="card bento-card bento-main-card">
+                  <div class="bento-main-num">1.301</div>
+                  <div class="bento-main-label">Citas Codificadas</div>
+                  <div class="bento-main-sub">Procesadas mediante Atlas.ti versión 26</div>
+                  <div class="bento-main-badge">Volumen General</div>
+                </div>
+
+                <!-- Bento right side with proportional layout -->
+                <div class="bento-right">
+                  <!-- Row 1: D1 and D2 -->
+                  <div class="bento-row bento-row-1">
+                    <!-- D1: 228 -->
+                    <div class="card bento-card bento-dim bento-dim-1 highlight-foco">
+                      <div class="bento-dim-header">
+                        <div class="bento-dim-title-container">
+                          <span class="bento-dim-code">D1</span>
+                          <span class="bento-dim-name">Convivencia y Urgencia Escolar</span>
+                        </div>
+                        <span class="bento-dim-badge-foco">FOCO CRÍTICO</span>
+                      </div>
+                      <div class="bento-dim-num">228</div>
+                    </div>
+                    
+                    <!-- D2: 452 (Blurish effect applied via CSS) -->
+                    <div class="card bento-card bento-dim bento-dim-2">
+                      <div class="bento-dim-header">
+                        <div class="bento-dim-title-container">
+                          <span class="bento-dim-code">D2</span>
+                          <span class="bento-dim-name">Interpretación y Priorización Directiva</span>
+                        </div>
+                        <span class="bento-dim-badge">MÁXIMO</span>
+                      </div>
+                      <div class="bento-dim-num">452</div>
+                    </div>
+                  </div>
+
+                  <!-- Row 2: D3 and D4 -->
+                  <div class="bento-row bento-row-2">
+                    <!-- D3: 447 -->
+                    <div class="card bento-card bento-dim bento-dim-3 highlight-foco">
+                      <div class="bento-dim-header">
+                        <div class="bento-dim-title-container">
+                          <span class="bento-dim-code">D3</span>
+                          <span class="bento-dim-name">Articulación de Actores, Roles y Apoyos</span>
+                        </div>
+                        <span class="bento-dim-badge-foco">FOCO CRÍTICO</span>
+                      </div>
+                      <div class="bento-dim-num">447</div>
+                    </div>
+
+                    <!-- D4: 174 -->
+                    <div class="card bento-card bento-dim bento-dim-4 highlight-foco">
+                      <div class="bento-dim-header">
+                        <div class="bento-dim-title-container">
+                          <span class="bento-dim-code">D4</span>
+                          <span class="bento-dim-name">Tensión Pedagógica y Mejora</span>
+                        </div>
+                        <span class="bento-dim-badge-foco">FOCO CRÍTICO</span>
+                      </div>
+                      <div class="bento-dim-num">174</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA 4: Convivencia - Interrupciones cotidianas -->
+          <section id="slide-4" class="slide pitch-slide">
+            <div class="pitch-slide__content">
+              <p class="pitch-slide__eyebrow">Dimensión 1: Situaciones de Convivencia</p>
+              
+              <h2 class="pitch-slide__title">Interrupciones cotidianas</h2>
+              
+              <p class="pitch-slide__subtitle">
+                A partir de nuestros registros, levantamos una interpretación que queremos someter a su experiencia; pareciera que el entorno directivo está lejos de ser un espacio controlado y opera bajo una urgencia constante. En este escenario, observamos posiblemente la presión normativa y legal jugaría un rol decisivo para determinar qué se atiende primero.
+              </p>
+
+              <div class="pitch-slide__grid">
+                <article class="pitch-card">
+                  <span class="pitch-card__number">08</span>
+                  <h3 class="pitch-card__title">Imprevistos Diarios</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “La jornada típica de mi rol de director, es una jornada que no se puede planificar. Yo todas las mañanas le dedico como un buen hábito, digamos. Llego aquí unos 15 minutitos antes de mi jornada, me siento en mi escritorio, me hago mi café y planifico mi día. (...)”
+                  </p>
+                </article>
+
+                <article class="pitch-card">
+                  <span class="pitch-card__number">09</span>
+                  <h3 class="pitch-card__title">Mirada General y Foco</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “Entendido que el director no tiene que perder esa mirada general. Claro, yo puedo estar muy inmerso en un problema específico (...) y aún así tengo que saber salir de eso ahora y ver...”
+                  </p>
+                </article>
+
+                <article class="pitch-card">
+                  <span class="pitch-card__number">10</span>
+                  <h3 class="pitch-card__title">Prioridad y Resguardo Legal</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “Prioridad: Todo lo que tiene que ver con vulneración de derechos de nuestros estudiantes tiene un plazo y tú puedes denunciar hasta 24 horas. Eso es lo que dice la ley. Por tanto, del momento que uno de mis funcionarios escucha algo y me lo comunica a mí, yo empiezo a calcular mis 24 horas para que se vaya a tribunal cuanto antes. Eso es. La prioridad. Si tengo algún aviso de profesores que faltan o funcionarios por algún tipo de situación de salud.”
+                  </p>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA 4B (NUEVA): Preguntas de Reflexión y Trazabilidad -->
+          <section id="slide-questions-convivencia" class="slide pitch-slide">
+            <div class="pitch-slide__content">
+              
+              <!-- Left Column: Questions -->
+              <div class="questions-left-column" style="display: flex; flex-direction: column;">
+                <p class="pitch-slide__eyebrow">Preguntas de Diálogo y Reflexión</p>
+                <h2 class="pitch-slide__title" style="margin-bottom: 15px;">Interrogantes del Rol Directivo</h2>
+                
+                <div class="card question-card">
+                  <h3>1. La Presión de la Urgencia</h3>
+                  <p>
+                    ¿Hasta qué punto sienten que la urgencia diaria y la presión normativa terminan dictando su agenda, desplazando casi por completo la planificación directiva que tenían para el día?
+                  </p>
+                </div>
+
+                <div class="card question-card">
+                  <h3>2. El Registro: ¿Escudo o Carga?</h3>
+                  <p>
+                    Frente a la necesidad constante de documentar y dejar trazabilidad de cada acción, ¿en qué momentos sienten que este registro funciona como un verdadero respaldo institucional y cuándo se transforma en una carga que retrasa la gestión del conflicto real?
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right Column: Orange Illustration -->
+              <div class="questions-right-column" style="display: flex; justify-content: center; align-items: center;">
+                <div class="question-illustration-container">
+                  <img src="question_orange.png" alt="Ilustración de reflexión directiva">
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA 8B (UNIFICADA - CARRUSEL): Dimensión 3 - Delegación y Liderazgo Colaborativo -->
+          <section id="slide-dim3" class="slide pitch-slide">
+            <div class="pitch-slide__content" style="width: 100%; max-width: 1200px;">
+              <p class="pitch-slide__eyebrow">Dimensión 3: Articulación de actores, roles y apoyos institucionales</p>
+              
+              <h2 class="pitch-slide__title">Delegación y Liderazgo Colaborativo</h2>
+              
+              <p class="pitch-slide__subtitle" style="margin-bottom: 20px;">
+                Pareciera que el liderazgo en solitario es hoy sencillamente inviable. Delegar dejó de ser un estilo de gestión para convertirse en una necesidad de supervivencia ante la emergencia, obligándolos muchas veces a soltar el control para colaborar en la gestión de sus propios equipos.
+              </p>
+
+              <!-- Carousel Container -->
+              <div class="carousel-container">
+                <article class="carousel-card active-card">
+                  <span class="pitch-card__number">24</span>
+                  <h3 class="pitch-card__title">Trabajo en Equipo</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “Ehhh Y aun cuando me costó aprender a delegar, creo que llegué al punto de lograr trabajar en equipo bien. Ehhh Así que mi día, si tengo que describirlo en forma simple, diría que soy como un semáforo.”
+                  </p>
+                </article>
+
+                <article class="carousel-card">
+                  <span class="pitch-card__number">25</span>
+                  <h3 class="pitch-card__title">Límites de Roles</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “Sí, y eso, pero eso es muy importante, que todos sepan qué es lo que tienen que hacer ehhh y que no se pasen de la línea y empiecen a hacer el trabajo del otro.”
+                  </p>
+                </article>
+
+                <article class="carousel-card">
+                  <span class="pitch-card__number">26</span>
+                  <h3 class="pitch-card__title">Colaboración Directiva</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “Pero es interesante el cargo de director porque aún cuando tienes que pasar por convivencia escolar, inspectoría general, UTP, orientador y todas las que tiene este colegio, es interesante ver que si hay un líder en esa área y que tú no llegas a gestionar, tú llegas a colaborar en la gestión de alguien más.”
+                  </p>
+                </article>
+
+                <article class="carousel-card">
+                  <span class="pitch-card__number">27</span>
+                  <h3 class="pitch-card__title">Liderazgo Colaborativo</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “Entonces todo este concepto de liderazgo colaborativo, yo creo que hoy en día los colegios están más vivos que nunca.”
+                  </p>
+                </article>
+
+                <article class="carousel-card">
+                  <span class="pitch-card__number">28</span>
+                  <h3 class="pitch-card__title">Modelar con el Ejemplo</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “Es bien curioso todo esto porque yo he intentado llevar un liderazgo que modela con el ejemplo (...)”
+                  </p>
+                </article>
+
+                <article class="carousel-card">
+                  <span class="pitch-card__number">30</span>
+                  <h3 class="pitch-card__title">Sello de Servicio</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “Es el equipo directivo. Otra cosa que creo que también ha sido como una lógica mía de este equipo, que es como un sello, es la idea que cada uno del equipo directivo está al servicio de los docentes. Es decir, ellos no son los jefes a quien el docente tiene que estarle eh, temiendo o retroalimentando, no.”
+                  </p>
+                </article>
+
+                <article class="carousel-card">
+                  <span class="pitch-card__number">31</span>
+                  <h3 class="pitch-card__title">Cultura del Buen Trato</h3>
+                  <p class="pitch-card__text" style="font-style: italic;">
+                    “(...) Y el buen trato. Cuando yo llegué, un requisito es el buen trato y el buen trato no se habla, se modela y es por eso que desde que uno entra a la puerta acá nos saludamos, a lo menos de un buen saludo, sino de un abrazo, de un beso desde que en recepción hasta acá.”
+                  </p>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA 6B (NUEVA): Preguntas de Reflexión sobre Delegación y Liderazgo Colaborativo -->
+          <section id="slide-questions-liderazgo" class="slide pitch-slide">
+            <div class="pitch-slide__content">
+              
+              <!-- Left Column: Questions -->
+              <div class="questions-left-column" style="display: flex; flex-direction: column;">
+                <p class="pitch-slide__eyebrow">Preguntas de Diálogo y Reflexión</p>
+                <h2 class="pitch-slide__title" style="margin-bottom: 15px;">Dilemas del Liderazgo Colaborativo</h2>
+                
+                <div class="card question-card">
+                  <h3>1. Control vs. Empoderamiento</h3>
+                  <p>
+                    Respecto a que intentar resolver todo en solitario hoy podría ser inviable, ¿cómo experimentan en la práctica esa tensión entre la necesidad de mantener el control de la escuela y la urgencia de soltarlo para empoderar a otros líderes de su equipo?
+                  </p>
+                </div>
+
+                <div class="card question-card">
+                  <h3>2. El Rol del Director como Colaborador</h3>
+                  <p>
+                    ¿Qué desafíos o resistencias enfrentan cuando delegan resoluciones críticas y deben asumir, desde la dirección, un rol de "colaboradores" en la gestión que realizan sus propios equipos intermedios?
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right Column: Orange Illustration -->
+              <div class="questions-right-column" style="display: flex; justify-content: center; align-items: center;">
+                <div class="question-illustration-container-wide">
+                  <img src="float_orange.png" alt="Ilustración de liderazgo colaborativo">
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA 10: Dimensión 4 - Urgencia Pedagógica y Mejora -->
+          <section id="slide-10" class="slide pitch-slide">
+            <div class="pitch-slide__content" style="width: 100%; max-width: 1200px;">
+              <p class="pitch-slide__eyebrow">Dimensión 4: Tensión Pedagógica y Mejora</p>
+              
+              <h2 class="pitch-slide__title">Urgencia Pedagógica y Mejora</h2>
+              
+              <p class="pitch-slide__subtitle" style="margin-bottom: 5px;">
+                Desplazamiento o interrupción del trabajo pedagógico. El tercer elemento que buscamos contrastar hoy es cómo la urgencia desplaza lo pedagógico. Nuestra lectura de los datos sugiere que, para sostener la escuela en el día a día, la exigencia académica estricta termina dando un paso al costado para priorizar la convivencia.
+              </p>
+
+              <!-- 3D Prism Scene -->
+              <div class="prism-scene" id="slide10-scene">
+                <div class="prism-wrapper" id="slide10-prism">
+
+                  <article class="prism-face prism-face-1">
+                    <div class="prism-quote-number">Cita 39</div>
+                    <p class="prism-quote-text">
+                      “(…) La convivencia escolar, como dije al comienzo, es algo que se enseña, no es algo inherente en nosotros, no es algo natural en nosotros. Por lo tanto, tiene que enseñarse de forma significativa. Para que se enseñe en forma significativa tiene que estar en el currículum y en el currículum de todas las asignaturas, no solamente de Consejo de curso, por ejemplo, o de orientación. Tiene que estar en todo.”
+                    </p>
+                  </article>
+
+                  <article class="prism-face prism-face-2">
+                    <div class="prism-quote-number">Cita 40</div>
+                    <p class="prism-quote-text">
+                      “Entonces, la convivencia escolar se traspasa al ámbito académico, pero como parte, como una parte esencial de la actitud y de los OAS que están establecidos como actitudinales ehhh hacia tanto la asignatura como hacia sus pares. Así que es parte.”
+                    </p>
+                  </article>
+
+                  <article class="prism-face prism-face-3">
+                    <div class="prism-quote-number">Cita 41</div>
+                    <p class="prism-quote-text">
+                      “Aquí es donde tiene que aprender acá, no va a ser fuera, de hecho, no me interesa que después lleve tareas para la casa, porque en la casa yo quiero que comparta con su familia, si lleva una tarea y la familia además está la presión de tener que enseñarle, terminan discutiendo entre los 2 y entonces yo necesito que haya un acercamiento a su familia, que se conozca mejor, que lleve cosas bonitas y que si va a llevar cosas para la casa sean voluntarios.”
+                    </p>
+                  </article>
+
+                  <article class="prism-face prism-face-4">
+                    <div class="prism-quote-number">Cita 42</div>
+                    <p class="prism-quote-text">
+                      “A mí no me importa que solo le enseñe la asignatura, me importa que le enseñe para la vida, cómo te sientes, el tono de voz que usas cuando estás y eso es muy importante. Un día cuando nos toque estar juntas vamos a ir a algunas salas para ver también las relaciones que se dan con cómo los profes se dirigen a ellos, que es lo que nosotros promovemos en esta relación.”
+                    </p>
+                  </article>
+
+                </div>
+              </div>
+
+              <p class="prism-hint">Mueve el mouse sobre el prisma para rotarlo.</p>
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA 11: Diálogo - Preguntas Abiertas -->
+          <section id="slide-questions-pedagogica" class="slide pitch-slide">
+            <div class="pitch-slide__content">
+              
+              <!-- Left Column: Questions -->
+              <div class="questions-left-column" style="display: flex; flex-direction: column;">
+                <p class="pitch-slide__eyebrow">Preguntas de Diálogo y Reflexión</p>
+                <h2 class="pitch-slide__title" style="margin-bottom: 15px;">Interrogantes de la Tensión Pedagógica</h2>
+                
+                <div class="card question-card">
+                  <h3>1. Reconfigurar el "Aprender"</h3>
+                  <p>
+                    Ante la irrupción constante de necesidades socioemocionales y de convivencia, ¿sienten que en sus comunidades se ha tenido que reconfigurar la definición misma de "aprender", priorizando la contención y la formación para la vida por sobre la cobertura del currículum tradicional?
+                  </p>
+                </div>
+
+                <div class="card question-card">
+                  <h3>2. Proteger el Tiempo Pedagógico</h3>
+                  <p>
+                    En medio de esta reconfiguración diaria, ¿qué estrategias o decisiones, muchas veces invisibles para el sistema, aplican ustedes para proteger el tiempo pedagógico y evitar que los propósitos de mejora escolar desaparezcan bajo la contingencia?
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right Column: Orange Illustration -->
+              <div class="questions-right-column" style="display: flex; justify-content: center; align-items: center;">
+                <div class="question-illustration-container-square">
+                  <img src="thinker_orange.png" alt="Ilustración de reflexión pedagógica">
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- DIAPOSITIVA FINAL: Cierre con Imagen Campanil B&N, Cita y MagicRings -->
+          <section id="slide-minimalist-cover" class="slide pitch-slide" style="position: relative; overflow: hidden;">
+            <!-- Imagen del Campanil a pantalla completa en blanco y negro -->
+            <div class="slide-bg-grayscale"></div>
+            <!-- Overlay oscuro para legibilidad -->
+            <div class="slide-dark-overlay"></div>
+
+            <!-- Capa de contenido encima de los overlays -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none;">
+
+              <!-- Logo + código en esquina superior izquierda -->
+              <header style="position: absolute; top: 36px; left: 40px; display: flex; align-items: center; gap: 14px; pointer-events: auto;">
+                <img src="fac_educacion-white-text.png" alt="Facultad de Educación UdeC" style="height: 68px; width: auto; display: block;">
+                <span style="color: #ffffff; font-size: 1.05em; font-family: var(--font-titles); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500;">Proyecto VRIMF 2631</span>
+              </header>
+
+              <!-- Canvas WebGL MagicRings: detrás de la tarjeta -->
+              <div id="magic-rings-mount"></div>
+
+              <!-- Tarjeta de cita: sobre los anillos -->
+              <div class="quote-card">
+                <span style="font-family: Georgia, serif; font-size: 4.5rem; line-height: 1; color: rgba(255,255,255,0.13); position: absolute; top: -8px; left: 14px; user-select: none;">"</span>
+                <p style="font-family: Georgia, serif; font-size: 0.91rem; line-height: 1.72; color: #FAF9F6; margin: 0; font-style: normal; font-weight: 400;">
+                  Yo diría que la convivencia escolar a futuro, lo que busca es construir un buen ciudadano. Ten por seguro, (...) que si tú tienes aquí un niño que es dialogante, que logra negociar sabiendo que no va a ganar todo y que (...) expresa su opinión sin ofender al otro. Lo que estamos construyendo es un buen ciudadano y la misión del colegio es súper linda. En el fondo, tú necesitas buenos ciudadanos para tener una sociedad sana. Yo creo que convivencia escolar en términos inmediatos es eso, buscamos generar un ambiente propicio para que nuestros estudiantes aprendan y a futuro enseñarle cuál es la forma correcta de convivir con los otros ciudadanos (...)
+                </p>
+                <span style="font-family: Georgia, serif; font-size: 4.5rem; line-height: 1; color: rgba(255,255,255,0.13); position: absolute; bottom: -42px; right: 14px; user-select: none;">"</span>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+      </article>
+
+      <!-- NAVIGATION AND UTILITY CONTROL BAR -->
+      <nav class="presentation-controls" aria-label="Controles de la presentación">
+        <!-- Prev Button -->
+        <button id="prev-btn" class="control-btn" aria-label="Diapositiva anterior">◀</button>
+        
+        <!-- Slide Counter -->
+        <div id="slide-counter" class="slide-counter">1 / 10</div>
+        
+        <!-- Next Button -->
+        <button id="next-btn" class="control-btn" aria-label="Siguiente diapositiva">▶</button>
+        
+        <div class="control-divider" aria-hidden="true"></div>
+        
+        <!-- Theme Selection System -->
+        <div class="theme-selector" aria-label="Cambiar tema de diseño">
+          <div id="theme-opt-vibrant" class="theme-opt active">Vibrante</div>
+          <div id="theme-opt-minimalist" class="theme-opt">Minimalista</div>
+        </div>
+        
+        <div class="control-divider" aria-hidden="true"></div>
+        
+        <!-- Fullscreen Button -->
+        <button id="fullscreen-btn" class="control-btn" aria-label="Pantalla completa" title="Pantalla completa (F)">⛶</button>
+      </nav>
+
+    </div>
+
+  </main>
+
+  <script src="presentation.js"></script>
+</body>
+</html>
