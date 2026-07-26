@@ -429,6 +429,48 @@ body.theme-minimalist .card:hover * {
   margin-bottom: 4px;
 }
 
+.header-method-tags {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 2px;
+  flex-wrap: wrap;
+}
+
+.method-tag {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.method-tag:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+body.theme-minimalist .method-tag {
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  color: #17304F;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+body.theme-minimalist .method-tag:hover {
+  background: #E5E7EB;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
 .slide-header h2 {
   font-size: 1.6em;
   margin: 0;
@@ -2797,32 +2839,39 @@ body.theme-minimalist #slide-questions-pedagogica .question-illustration-contain
   filter: brightness(0) invert(1) !important;
 }
 
-#magic-rings-mount {
+#slide-minimalist-cover #magic-rings-mount {
   position: absolute;
-  left: 8%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40%;
-  max-width: 600px;
-  min-width: 320px;
-  height: 620px;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 1400px;
+  max-width: 95vw;
+  height: 900px;
   pointer-events: none;
   z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0.85; /* control opacity */
 }
 
-.quote-card {
-    /* 1. Posicionamiento a la izquierda */
+/* Fallback si se usara sin el id (el usuario pidió limitarlo) */
+#magic-rings-mount {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#slide-minimalist-cover .quote-card {
+    /* 1. Posicionamiento centrado */
     position: absolute;
-    left: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40%;
-    max-width: 600px;
-    min-width: 320px;
-    padding: 2.5rem;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    max-width: 1050px;
+    min-width: 820px;
+    padding: 50px 68px;
 
     /* 2. Efecto Glassmorphism (Liquid Glass) oscuro */
     background: rgba(20, 20, 20, 0.45); /* Fondo negro translúcido */
@@ -2892,6 +2941,12 @@ body.theme-minimalist #slide-questions-pedagogica .question-illustration-contain
   .quote-mark {
     font-size: 4rem;
   }
+
+  #slide-minimalist-cover .quote-card {
+    width: 85vw;
+    min-width: 0;
+    padding: 40px 48px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2937,6 +2992,17 @@ body.theme-minimalist #slide-questions-pedagogica .question-illustration-contain
   #slide-minimalist-cover .project-code {
     font-size: 0.75em !important;
   }
+
+  #slide-minimalist-cover .quote-card {
+    width: 90vw;
+    min-width: 0;
+    padding: 28px 32px;
+  }
+  
+  #slide-minimalist-cover #magic-rings-mount {
+    width: 150vw;
+    height: 150vw;
+  }
 }
 
 .imagen-campanil {
@@ -2952,4 +3018,834 @@ body.theme-minimalist #slide-questions-pedagogica .question-illustration-contain
     /* Va de transparente en el extremo izquierdo a negro (sólido) hacia la derecha */
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%);
     mask-image: linear-gradient(to right, transparent 0%, black 25%);
+}
+
+/* PICKER WHEEL COMPONENT (SLIDE 3) */
+.picker-wheel-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0D1117; /* Dark background matching the theme */
+  border-radius: inherit;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.bento-dim.picker-active .picker-wheel-container {
+  opacity: 1;
+  visibility: visible;
+}
+
+.bento-dim.picker-active .bento-dim-header,
+.bento-dim.picker-active .bento-dim-num {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.picker-wheel {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  padding: 0 15px; /* Padding dinámico calculado por JS */
+  position: relative;
+  box-sizing: border-box;
+}
+
+.picker-wheel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Efecto de degradado para simular la curvatura de la rueda */
+.picker-wheel-container::before,
+.picker-wheel-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  pointer-events: none;
+  z-index: 11;
+  border-radius: inherit;
+}
+.picker-wheel-container::before {
+  top: 0;
+  background: linear-gradient(to bottom, #0D1117 20%, transparent);
+}
+.picker-wheel-container::after {
+  bottom: 0;
+  background: linear-gradient(to top, #0D1117 20%, transparent);
+}
+
+/* Cápsula central (área de selección) */
+.picker-capsule {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  width: 90%;
+  height: 60px; /* Igual al height de picker-item */
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1; /* Detrás del texto pero delante del fondo */
+}
+
+.picker-item {
+  height: 60px; /* Más espacio negativo */
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  font-family: inherit;
+  font-size: 0.9em;
+  color: #8B949E;
+  
+  /* Valores dinámicos controlados por JS según proximidad al centro */
+  opacity: var(--dyn-opacity, 0.4);
+  transform: scale(var(--dyn-scale, 0.8));
+  
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+  text-align: center;
+  line-height: 1.3;
+  cursor: pointer;
+  z-index: 2; /* Por encima de la cápsula */
+}
+
+.picker-item.active {
+  color: #5227FF; /* Azul/Púrpura premium */
+  font-weight: 600;
+  text-shadow: 0 0 15px rgba(82, 39, 255, 0.4); /* Glow sutil */
+}
+
+/* Micro-animación de encaje (Pulse de 120ms) usando la escala dinámica base */
+@keyframes pulse-center {
+  0% { transform: scale(calc(var(--dyn-scale) * 1.0)); text-shadow: 0 0 5px rgba(82, 39, 255, 0.2); }
+  50% { transform: scale(calc(var(--dyn-scale) * 1.05)); text-shadow: 0 0 20px rgba(82, 39, 255, 0.8); }
+  100% { transform: scale(var(--dyn-scale)); text-shadow: 0 0 15px rgba(82, 39, 255, 0.4); }
+}
+
+.picker-item.pulse {
+  animation: pulse-center 0.12s ease-out forwards;
+}
+
+/* Botón "Ver imagen" inyectado por JS */
+.ver-imagen-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  color: #5227FF; /* Acento premium */
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background-color: rgba(82, 39, 255, 0.1);
+}
+
+.picker-item.active .ver-imagen-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ver-imagen-btn:hover {
+  background-color: rgba(82, 39, 255, 0.2);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   PORTADA PITCH DECK MINIMAL SOLUTIONS (SLIDE 11)
+   ========================================================================== */
+
+.split-cover-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  background: #1E2F3F; /* Color base oscuro */
+  font-family: "Montserrat", "Poppins", "APTOS", Arial, sans-serif;
+}
+
+/* Panel Izquierdo */
+.cover-left-panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 58%;
+  height: 100%;
+  background: linear-gradient(90deg, #F7B733 0%, #F7931E 34%, #F15A24 58%, #1E2F3F 100%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14% 6% 8% 8%; /* Top, Right, Bottom, Left */
+  box-sizing: border-box;
+}
+
+.split-title-block {
+  max-width: 780px;
+}
+
+.split-title {
+  font-size: 44px;
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  color: #FFFFFF;
+  text-shadow: 0 3px 14px rgba(0,0,0,0.22);
+  text-align: left;
+  margin: 0;
+}
+
+/* Panel Derecho (Imagen e Intersección) */
+.cover-right-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 52%; /* Solapa un poco con el panel izquierdo */
+  height: 100%;
+  z-index: 1;
+}
+
+.split-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.68;
+  mix-blend-mode: screen;
+  filter: sepia(0.6) hue-rotate(-20deg) contrast(0.8) blur(1px); /* warm sepia, soft contrast */
+}
+
+/* Overlay Naranja en la transición */
+.split-orange-overlay {
+  position: absolute;
+  left: -20%; /* Para que empiece antes de la imagen en sí, creando mezcla */
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(241,90,36,0.94), rgba(247,147,30,0.72));
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Elementos Curvos Decorativos */
+.curved-bands-svg {
+  position: absolute;
+  left: -10%;
+  top: 0;
+  width: 80%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  transform: rotate(8deg) scale(1.2);
+  transform-origin: center center;
+}
+
+.curved-bands-svg path {
+  fill: none;
+  stroke: rgba(241,90,36,0.75);
+  stroke-width: 6px;
+  stroke-linecap: round;
+}
+
+/* Etiquetas Conceptuales (Categorías) */
+.split-category-pills {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  flex-wrap: wrap;
+  z-index: 4; /* Sobre las curvas */
+}
+
+.split-pill {
+  height: 34px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.24);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  
+  position: relative;
+  overflow: hidden;
+}
+
+.split-pill::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: var(--accent);
+}
+
+/* ==========================================================================
+   MATRIZ ORBITAL DE ARTICULACIÓN DIRECTIVA (SLIDE 12)
+   ========================================================================== */
+
+.orbital-matrix-slide {
+  background: radial-gradient(circle at center, #17304F 0%, #102A46 48%, #0B1F35 100%);
+  overflow: hidden;
+}
+
+.theme-minimalist .orbital-matrix-slide {
+  background: #F7F8FA;
+}
+
+.orbital-matrix-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat", "Poppins", "APTOS", Arial, sans-serif;
+  color: #FFFFFF;
+}
+
+.theme-minimalist .orbital-matrix-container {
+  color: #17304F;
+}
+
+/* Header */
+.orbital-matrix-header {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  z-index: 100;
+  max-width: 450px;
+  pointer-events: none;
+}
+
+.orbital-matrix-header h2 {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: #FFFFFF;
+}
+.theme-minimalist .orbital-matrix-header h2 {
+  color: #17304F;
+}
+
+/* Escenario 3D */
+.orbital-matrix-stage {
+  perspective: 1600px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbital-matrix-system {
+  position: relative;
+  width: 1000px;
+  height: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out; /* Más suave */
+  /* Ajuste inicial para evitar que se vea plano */
+  transform: rotateX(60deg) rotateZ(-10deg); 
+}
+
+/* Núcleo Central */
+.matrix-core {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 180px; height: 180px;
+  transform: translate(-50%, -50%) translateZ(40px);
+  border-radius: 50%;
+  background: radial-gradient(135deg, rgba(255,244,216,0.95) 0%, rgba(255,255,255,0.8) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 30px rgba(255,255,255,1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.matrix-core-glow {
+  position: absolute;
+  top: -15%; left: -15%; width: 130%; height: 130%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,244,216,0.4) 0%, transparent 60%);
+  animation: pulseGlow 4s infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.matrix-core-content {
+  text-align: center;
+  padding: 15px;
+  color: #17304F;
+  z-index: 2;
+}
+
+.matrix-core-content h3 {
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+}
+
+.theme-minimalist .matrix-core {
+  background: radial-gradient(135deg, #FFFFFF 0%, #F3F4F6 100%);
+  box-shadow: 0 15px 35px rgba(15,23,42,0.15), inset 0 0 20px #FFF;
+  border-color: #E5E7EB;
+}
+
+/* Órbitas Concéntricas */
+.matrix-orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  z-index: 10;
+}
+
+.matrix-orbit:focus {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 4px;
+}
+
+.matrix-orbit span {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(16,42,70,0.9);
+  padding: 3px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.7; /* Ahora siempre visible un poco */
+  transition: all 0.3s ease;
+  color: inherit;
+  border: 1px solid currentColor;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.theme-minimalist .matrix-orbit span {
+  background: #FFFFFF;
+  opacity: 0.85;
+}
+
+.matrix-orbit:hover span, .matrix-orbit.active span {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.1);
+}
+
+/* Estilos individuales de órbitas (de afuera hacia adentro) */
+.orbit-risk {
+  width: 920px; height: 920px;
+  border: 2px dashed rgba(214, 69, 58, 0.6);
+  color: #D6453A;
+}
+.orbit-interpretation {
+  width: 770px; height: 770px;
+  border: 2px solid rgba(242, 193, 78, 0.5);
+  color: #F2C14E;
+}
+.orbit-decision {
+  width: 620px; height: 620px;
+  border: 2px dashed rgba(242, 140, 40, 0.6);
+  color: #F28C28;
+}
+.orbit-articulation {
+  width: 470px; height: 470px;
+  border: 2px solid rgba(115, 199, 184, 0.5);
+  color: #73C7B8;
+}
+.orbit-stabilization {
+  width: 320px; height: 320px;
+  border: 2px dashed rgba(53, 107, 154, 0.6);
+  color: #356B9A;
+}
+
+.matrix-orbit:hover, .matrix-orbit.active {
+  box-shadow: inset 0 0 30px currentColor, 0 0 30px currentColor;
+  z-index: 20;
+  border-color: currentColor;
+}
+.theme-minimalist .matrix-orbit {
+  opacity: 0.8;
+}
+.theme-minimalist .matrix-orbit:hover, .theme-minimalist .matrix-orbit.active {
+  opacity: 1;
+  box-shadow: none;
+  background: rgba(255,255,255,0.3);
+}
+
+/* Interacción de atenuación */
+.orbital-matrix-system.hovering-orbit .matrix-orbit:not(.active):not(:hover) {
+  opacity: 0.15;
+}
+.orbital-matrix-system.hovering-orbit .matrix-satellites {
+  opacity: 0.4;
+}
+
+/* Evento Disruptivo (Partícula) */
+.impact-particle {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 8px rgba(255,255,255,0.9), -30px 0 40px rgba(214,69,58,0.9);
+  z-index: 120;
+  pointer-events: none;
+  animation: impactTravel 15s infinite ease-in-out;
+}
+
+.particle-label {
+  position: absolute;
+  top: -30px; left: -50px;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@keyframes impactTravel {
+  0% { transform: translate(-1200px, -300px) scale(0); opacity: 0; }
+  10% { opacity: 1; transform: translate(-500px, -50px) scale(1.5); } 
+  30% { transform: translate(-385px, -20px) scale(1.2); } /* Interpretación */
+  50% { transform: translate(-310px, 0px) scale(1); } /* Decisión */
+  70% { transform: translate(-235px, 20px) scale(0.9); } /* Articulación */
+  85% { transform: translate(-160px, 30px) scale(0.6); opacity: 0.8; } /* Estabilización */
+  95% { transform: translate(-100px, 10px) scale(0.2); opacity: 0; } /* Núcleo */
+  100% { opacity: 0; transform: translate(-100px, 10px) scale(0); }
+}
+
+/* Etiqueta de secuencia */
+.sequence-label {
+  display: none; /* Quitamos de V2.1 para mantener limpieza, el panel explica */
+}
+
+/* Satélites */
+.matrix-satellites {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 30;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mat-sat-wrap {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform-origin: 0 0;
+  animation: matrixSpin linear infinite;
+}
+
+@keyframes matrixSpin { 100% { transform: rotate(360deg); } }
+@keyframes matrixAntiSpin { 100% { transform: rotate(-360deg); } }
+
+.mat-wrap-risk { width: 460px; animation-duration: 34s; }
+.mat-wrap-interpretation { width: 385px; animation-duration: 38s; animation-delay: -10s; }
+.mat-wrap-decision { width: 310px; animation-duration: 42s; animation-delay: -5s; }
+.mat-wrap-articulation { width: 235px; animation-duration: 48s; animation-delay: -20s; }
+.mat-wrap-stabilization-a { width: 160px; animation-duration: 52s; animation-delay: -2s; }
+.mat-wrap-stabilization-b { width: 160px; animation-duration: 52s; animation-delay: -26s; }
+
+/* Nodos Satélite en 3D (Esferas sin texto) */
+.orbiting-node {
+  position: absolute;
+  top: -12px; right: -12px; /* Radio = 12px */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.8);
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5), 0 5px 15px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  
+  animation: matrixAntiSpin linear infinite;
+  animation-duration: inherit; /* Hereda del padre para mantener highlight frontal */
+}
+
+/* Ocultar el texto en los botones, ya que ahora son solo esferas (y no generamos el span en HTML) */
+.orbiting-node span {
+  display: none;
+}
+
+/* Colores específicos de los nodos satélite */
+.node-rights { background: #D6453A; box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5), 0 0 10px rgba(214,69,58,0.8); border-color: rgba(255,255,255,0.8); }
+.node-criteria { background: #F2C14E; box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5), 0 0 10px rgba(242,193,78,0.8); border-color: rgba(255,255,255,0.8); }
+.node-decision { background: #F28C28; box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5), 0 0 10px rgba(242,140,40,0.8); border-color: rgba(255,255,255,0.8); }
+.node-roles { background: #73C7B8; box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5), 0 0 10px rgba(115,199,184,0.8); border-color: rgba(255,255,255,0.8); }
+.node-agreements { background: #356B9A; box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5), 0 0 10px rgba(53,107,154,0.8); border-color: rgba(255,255,255,0.8); }
+.node-traceability { background: #356B9A; box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5), 0 0 10px rgba(53,107,154,0.8); border: 2px solid #FFF; } /* Diferenciador */
+
+.theme-minimalist .orbiting-node {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.orbiting-node:hover, .orbiting-node.active {
+  transform: scale(1.3);
+  z-index: 50;
+}
+.theme-minimalist .orbiting-node:hover, .theme-minimalist .orbiting-node.active {
+  background: #FFF;
+}
+
+.mat-sat-wrap:hover {
+  animation-play-state: paused;
+}
+.mat-sat-wrap:hover .orbiting-node {
+  animation-play-state: paused;
+}
+
+/* Panel Inferior/Lateral (Más compacto) */
+.orbital-reading-panel {
+  position: absolute;
+  top: 30px; right: 40px;
+  width: 340px; /* Reducido */
+  background: rgba(16,42,70,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 16px 20px;
+  z-index: 200;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+
+.theme-minimalist .orbital-reading-panel {
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 10px 25px rgba(15,23,42,0.1);
+}
+
+.orbital-reading-panel strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #FFF;
+}
+.theme-minimalist .orbital-reading-panel strong { color: #17304F; }
+
+.orbital-reading-panel p {
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+  color: rgba(255,255,255,0.9);
+}
+.theme-minimalist .orbital-reading-panel p { color: #4B5563; }
+
+.reading-concepts {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.concept-tag {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #FFF;
+}
+.theme-minimalist .concept-tag {
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  color: #374151;
+}
+
+/* Detener movimiento preferido por usuario */
+@media (prefers-reduced-motion: reduce) {
+  .mat-sat-wrap, .orbiting-node, .matrix-core-glow, .impact-particle {
+    animation: none !important;
+  }
+}
+
+/* RESPONSIVIDAD */
+@media (max-width: 900px) {
+  .orbital-matrix-system {
+    transform: scale(0.65);
+  }
+}
+
+@media (max-width: 600px) {
+  .orbital-matrix-slide {
+    overflow-y: auto;
+    display: block;
+  }
+  .orbital-matrix-container {
+    height: auto;
+    flex-direction: column;
+    padding: 60px 20px;
+    align-items: stretch;
+  }
+  .orbital-matrix-header {
+    position: relative;
+    top: 0; left: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .orbital-matrix-stage {
+    display: none; /* Se oculta el sistema orbital complejo */
+  }
+  .orbital-reading-panel {
+    position: relative;
+    top: auto; right: auto;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  /* Para móvil, aquí se podría inyectar el HTML vertical, pero 
+     por ahora solo mostramos el panel que puede ser tap-able */
+}
+
+/* ==========================================================================
+   CUSTOM NAVIGATION BUTTONS (Slide 3 & 12)
+   ========================================================================== */
+
+#slide-3 .restitucion-bubble-btn {
+  position: absolute;
+  top: 40px;
+  right: 50px;
+  z-index: 120;
+  padding: 12px 24px;
+  border-radius: 24px 24px 4px 24px; /* Forma de burbuja de diálogo */
+  border: 1px solid rgba(255,255,255,0.24);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+  transition: all 220ms ease;
+  font-family: var(--font-primary, inherit);
+}
+
+#slide-3 .restitucion-bubble-btn::before {
+  content: "☁️"; /* Ícono de nube */
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+#slide-3 .restitucion-bubble-btn:hover,
+#slide-3 .restitucion-bubble-btn:focus-visible {
+  background: #F28C28;
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.48);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 16px 38px rgba(242,140,40,0.36);
+  outline: none;
+}
+
+body.theme-minimalist #slide-3 .restitucion-bubble-btn {
+  background: rgba(255,255,255,0.92);
+  color: #17304F;
+  border-color: rgba(23,48,79,0.16);
+}
+
+body.theme-minimalist #slide-3 .restitucion-bubble-btn:hover,
+body.theme-minimalist #slide-3 .restitucion-bubble-btn:focus-visible {
+  background: #F28C28;
+  color: #ffffff;
+}
+
+#slide-12 .home-return-btn {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  z-index: 120;
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.24);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+  transition: background 220ms ease, color 220ms ease, transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  font-family: inherit;
+}
+
+#slide-12 .home-return-btn:hover,
+#slide-12 .home-return-btn:focus-visible {
+  background: #F28C28;
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.48);
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 16px 38px rgba(242,140,40,0.36);
+  outline: none;
+}
+
+body.theme-minimalist #slide-12 .home-return-btn {
+  background: rgba(255,255,255,0.92);
+  color: #17304F;
+  border-color: rgba(23,48,79,0.16);
+}
+
+body.theme-minimalist #slide-12 .home-return-btn:hover,
+body.theme-minimalist #slide-12 .home-return-btn:focus-visible {
+  background: #F28C28;
+  color: #ffffff;
 }

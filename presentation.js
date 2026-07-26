@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize slides
   function initPresentation() {
+    // Expose showSlide to global scope so inline scripts can trigger navigation
+    window.showSlide = showSlide;
+
     // Show first slide
     showSlide(0);
     
@@ -381,14 +384,14 @@ document.addEventListener('DOMContentLoaded', () => {
       uTime: { value: 0 },
       uAttenuation: { value: 10.0 },
       uResolution: { value: new THREE.Vector2() },
-      uColor: { value: new THREE.Color('#A855F7') }, // Purple
-      uColorTwo: { value: new THREE.Color('#6366F1') }, // Indigo
-      uLineThickness: { value: 2.0 },
+      uColor: { value: new THREE.Color('#F28C28') }, // Naranjo
+      uColorTwo: { value: new THREE.Color('#FF7A1A') }, // Naranjo luminoso
+      uLineThickness: { value: 1.8 },
       uBaseRadius: { value: 0.35 },
       uRadiusStep: { value: 0.1 },
       uScaleRate: { value: 0.1 },
-      uOpacity: { value: 0.65 },
-      uNoiseAmount: { value: 0.1 },
+      uOpacity: { value: 0.55 },
+      uNoiseAmount: { value: 0.12 },
       uRotation: { value: 0.0 },
       uRingGap: { value: 1.5 },
       uFadeIn: { value: 0.7 },
@@ -481,4 +484,231 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize
   initPresentation();
+});
+
+// ==========================================
+// MATRIZ ORBITAL DE ARTICULACIÓN DIRECTIVA (SLIDE 12 V2)
+// ==========================================
+const orbitalMatrixData = {
+  risk: {
+    title: "Cinturón de impacto · Riesgo",
+    color: "#D6453A",
+    function: "Detectar el impacto inicial",
+    description: "Capa externa donde los episodios disruptivos comprometen seguridad, bienestar o derechos. La vulneración de derechos activa la protección institucional.",
+    concepts: ["Vulneración de derechos", "Seguridad", "Bienestar inmediato"]
+  },
+  interpretation: {
+    title: "Anillo de filtro · Interpretación",
+    color: "#F2C14E",
+    function: "Convertir el impacto en prioridad",
+    description: "Capa donde se clasifican gravedad, riesgo y oportunidad antes de actuar.",
+    concepts: ["Gravedad", "Riesgo", "Oportunidad", "Evidencias"]
+  },
+  decision: {
+    title: "Anillo de maniobra · Decisión",
+    color: "#F28C28",
+    function: "Transformar la prioridad en decisión",
+    description: "Capa donde se define el curso de acción: atender, delegar, postergar, reorientar o activar procedimientos.",
+    concepts: ["Decidir", "Reorientar", "Plazos legales"]
+  },
+  articulation: {
+    title: "Anillo de despliegue · Articulación",
+    color: "#73C7B8",
+    function: "Distribuir la respuesta",
+    description: "Capa donde se coordinan roles, equipos y liderazgos como UTP, PIE e Inspectoría.",
+    concepts: ["Delegación", "Roles", "UTP", "PIE", "Inspectoría"]
+  },
+  stabilization: {
+    title: "Anillo de estabilización · Acuerdos y registro",
+    color: "#356B9A",
+    function: "Blindar el núcleo y devolver estabilidad",
+    description: "Capa donde la respuesta queda respaldada mediante comunicación, acuerdos, actas, correos, llamadas y protocolos.",
+    concepts: ["Coordinación", "Acuerdos", "Registro", "Trazabilidad"]
+  },
+  satellites: {
+    rights: {
+      title: "Vulneración de derechos",
+      orbit: "risk",
+      color: "#D6453A",
+      function: "Activa la protección institucional",
+      description: "Episodio disruptivo que compromete seguridad, bienestar o derechos y obliga a responder con prioridad."
+    },
+    criteria: {
+      title: "Gravedad, riesgo y oportunidad",
+      orbit: "interpretation",
+      color: "#F2C14E",
+      function: "Clasifica la urgencia",
+      description: "Permite determinar la magnitud del episodio antes de decidir cómo actuar."
+    },
+    decision: {
+      title: "Decidir y reorientar",
+      orbit: "decision",
+      color: "#F28C28",
+      function: "Define el curso de acción",
+      description: "Transforma la prioridad en acciones concretas: atender, delegar, postergar, reorientar o activar procedimientos."
+    },
+    roles: {
+      title: "Delegación y roles",
+      orbit: "articulation",
+      color: "#73C7B8",
+      function: "Distribuye la respuesta",
+      description: "Permite coordinar UTP, PIE, Inspectoría y otros liderazgos para que el director no absorba solo el impacto."
+    },
+    agreements: {
+      title: "Coordinación y acuerdos",
+      orbit: "stabilization",
+      color: "#356B9A",
+      function: "Produce acuerdo común",
+      description: "Ordena la comunicación y articula decisiones para evitar fracturas institucionales."
+    },
+    traceability: {
+      title: "Registro y trazabilidad",
+      orbit: "stabilization",
+      color: "#356B9A",
+      function: "Respalda la respuesta",
+      description: "Llamadas, correos, actas y protocolos sostienen continuidad, protección institucional y transparencia."
+    }
+  }
+};
+
+window.initOrbitalMatrix = function() {
+  const container = document.querySelector('.orbital-matrix-container');
+  const system = document.getElementById('orbital-matrix-system');
+  if (!container || !system) return;
+
+  // 1. Interacción 3D Parallax Mouse
+  let isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!isReducedMotion && window.innerWidth > 600) {
+    let ticking = false;
+    
+    container.addEventListener('mousemove', (e) => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const rect = container.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const percentX = (x - centerX) / centerX;
+          const percentY = (y - centerY) / centerY;
+          
+          // Limits requested: rotateY max ~24deg, rotateX max ~16deg, rotateZ ~2deg
+          // Base transform: rotateX(60deg) rotateZ(-10deg)
+          const baseRotateX = 60;
+          const baseRotateZ = -10;
+          
+          const addRotateY = percentX * 24;
+          const addRotateX = -percentY * 16; 
+          const addRotateZ = percentX * 2;
+          
+          system.style.transform = `rotateX(${baseRotateX + addRotateX}deg) rotateY(${addRotateY}deg) rotateZ(${baseRotateZ + addRotateZ}deg)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    container.addEventListener('mouseleave', () => {
+      system.style.transform = `rotateX(60deg) rotateZ(-10deg)`;
+    });
+  }
+
+  // 2. Interacciones de Hover/Click en Órbitas y Satélites
+  const panel = document.getElementById('orbital-reading-panel');
+  
+  const resetPanel = () => {
+    system.classList.remove('hovering-orbit');
+    document.querySelectorAll('.matrix-orbit').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.orbiting-node').forEach(el => el.classList.remove('active'));
+    
+    panel.innerHTML = `
+      <strong>Lectura del sistema</strong>
+      <p>La urgencia no impacta directamente el núcleo pedagógico: atraviesa capas sucesivas que transforman el riesgo en gobernabilidad cotidiana.</p>
+    `;
+  };
+
+  const updatePanelWithOrbit = (orbitId) => {
+    const data = orbitalMatrixData[orbitId];
+    if (!data) return;
+
+    system.classList.add('hovering-orbit');
+    
+    const tagsHtml = (data.concepts || []).map(c => `<span class="concept-tag" style="border-color: ${data.color}">${c}</span>`).join('');
+    
+    panel.innerHTML = `
+      <strong style="color: ${data.color}">${data.title}</strong>
+      <div class="reading-concepts">${tagsHtml}</div>
+    `;
+  };
+
+  const updatePanelWithSatellite = (satId) => {
+    const data = orbitalMatrixData.satellites[satId];
+    if (!data) return;
+
+    system.classList.add('hovering-orbit');
+    
+    panel.innerHTML = `
+      <strong style="color: ${data.color}">${data.title}</strong>
+      <p style="font-size:11px; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; opacity:0.7;">Capa: ${data.orbit}</p>
+      <p>${data.description}</p>
+      <p style="margin-top:8px; font-size:12px; font-weight:600; opacity:0.8;">Función: ${data.function}</p>
+    `;
+  };
+
+  // Asignar eventos a las órbitas (líneas)
+  document.querySelectorAll('.matrix-orbit').forEach(orbit => {
+    orbit.addEventListener('mouseenter', () => {
+      if (window.innerWidth <= 600) return;
+      orbit.classList.add('active');
+      updatePanelWithOrbit(orbit.dataset.orbit);
+    });
+    
+    orbit.addEventListener('mouseleave', () => {
+      if (window.innerWidth <= 600) return;
+      resetPanel();
+    });
+
+    orbit.addEventListener('click', () => {
+      orbit.classList.add('active');
+      updatePanelWithOrbit(orbit.dataset.orbit);
+    });
+  });
+
+  // Asignar eventos a los satélites
+  document.querySelectorAll('.orbiting-node').forEach(sat => {
+    sat.addEventListener('mouseenter', () => {
+      if (window.innerWidth <= 600) return;
+      sat.classList.add('active');
+      
+      const satId = sat.dataset.satellite;
+      const data = orbitalMatrixData.satellites[satId];
+      if (data) {
+        document.querySelector(`.orbit-${data.orbit}`).classList.add('active');
+        updatePanelWithSatellite(satId);
+      }
+    });
+
+    sat.addEventListener('mouseleave', () => {
+      if (window.innerWidth <= 600) return;
+      resetPanel();
+    });
+    
+    sat.addEventListener('click', () => {
+      sat.classList.add('active');
+      const satId = sat.dataset.satellite;
+      const data = orbitalMatrixData.satellites[satId];
+      if (data) {
+        document.querySelector(`.orbit-${data.orbit}`).classList.add('active');
+        updatePanelWithSatellite(satId);
+      }
+    });
+  });
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof initOrbitalMatrix === 'function') {
+    initOrbitalMatrix();
+  }
 });
