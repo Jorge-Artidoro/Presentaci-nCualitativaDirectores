@@ -1,0 +1,484 @@
+/* ==========================================================================
+   JAVASCRIPT PRESENTATION CONTROL SYSTEM - THE COMPLEXITY OF SCHOOL LEADERSHIP
+   ========================================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // State variables
+  let currentSlide = 0;
+  let activeTheme = 'vibrant'; // Default theme
+  
+  // Element references
+  const slides = document.querySelectorAll('.slide');
+  const slidesContainer = document.getElementById('presentation-container');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const slideCounter = document.getElementById('slide-counter');
+  const progressBarFill = document.getElementById('progress-bar-fill');
+  
+  const themeOptVibrant = document.getElementById('theme-opt-vibrant');
+  const themeOptMinimalist = document.getElementById('theme-opt-minimalist');
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+  // Initialize slides
+  function initPresentation() {
+    // Show first slide
+    showSlide(0);
+    
+    // Set size of container to full screen
+    resizeSlides();
+    window.addEventListener('resize', resizeSlides);
+    
+    // Set up theme
+    setTheme(activeTheme);
+    
+    // Set up carousel interactivity
+    setupCarouselInteractivity();
+
+    // Set up 3D prism interactivity
+    setupPrismInteractivity();
+
+    // Set up MagicRings on final slide
+    setupMagicRings();
+  }
+
+  // Slide display logic
+  function showSlide(index) {
+    if (index < 0 || index >= slides.length) return;
+    
+    // Remove active class from all slides
+    slides.forEach(slide => slide.classList.remove('active'));
+    
+    // Add active class to target slide
+    slides[index].classList.add('active');
+    currentSlide = index;
+    
+    // Toggle pitch-deck-mode if we are on Slide 4 onwards (index >= 3)
+    if (index >= 3) {
+      slidesContainer.classList.add('pitch-deck-mode');
+    } else {
+      slidesContainer.classList.remove('pitch-deck-mode');
+    }
+
+    // Dynamic theme override: slides 4, 6, 8, and 10 (indices 3, 5, 7, 9) must appear in minimalist style.
+    if (index === 3 || index === 5 || index === 7 || index === 9) {
+      document.body.className = 'theme-minimalist';
+    } else {
+      document.body.className = 'theme-' + activeTheme;
+    }
+    
+    // Update progress controls
+    updateControls();
+    
+    // Trigger custom slide animations
+    triggerSlideAnimations(index);
+  }
+
+  function nextSlide() {
+    if (currentSlide < slides.length - 1) {
+      showSlide(currentSlide + 1);
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      showSlide(currentSlide - 1);
+    }
+  }
+
+  // Update counter and progress bar
+  function updateControls() {
+    // Counter
+    slideCounter.innerText = `${currentSlide + 1} / ${slides.length}`;
+    
+    // Progress bar
+    const percent = (currentSlide / (slides.length - 1)) * 100;
+    progressBarFill.style.width = `${percent}%`;
+    
+    // Enable/disable navigation buttons
+    prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
+    prevBtn.style.cursor = currentSlide === 0 ? 'not-allowed' : 'pointer';
+    
+    nextBtn.style.opacity = currentSlide === slides.length - 1 ? '0.3' : '1';
+    nextBtn.style.cursor = currentSlide === slides.length - 1 ? 'not-allowed' : 'pointer';
+  }
+
+  // Trigger animations inside specific slides
+  function triggerSlideAnimations(slideIndex) {
+    // Slide 3 (index 2): Dimension Bars animation (only run if elements are present)
+    if (slideIndex === 2) {
+      setTimeout(() => {
+        const d1 = document.getElementById('bar-d1');
+        const d2 = document.getElementById('bar-d2');
+        const d3 = document.getElementById('bar-d3');
+        const d4 = document.getElementById('bar-d4');
+        if (d1) d1.style.width = '50.4%';
+        if (d2) d2.style.width = '100%';
+        if (d3) d3.style.width = '98.9%';
+        if (d4) d4.style.width = '38.5%';
+      }, 200);
+    } else {
+      // Reset bar widths when leaving slide
+      const bars = ['bar-d1', 'bar-d2', 'bar-d3', 'bar-d4'];
+      bars.forEach(id => {
+        const bar = document.getElementById(id);
+        if (bar) bar.style.width = '0%';
+      });
+    }
+
+  }
+
+  // Force slide container to occupy the entire viewport
+  function resizeSlides() {
+    slidesContainer.style.position = 'absolute';
+    slidesContainer.style.left = '0px';
+    slidesContainer.style.top = '0px';
+    slidesContainer.style.width = '100vw';
+    slidesContainer.style.height = '100vh';
+    slidesContainer.style.transform = 'none';
+  }
+
+  // Theme selector
+  function setTheme(theme) {
+    activeTheme = theme;
+    
+    // Override body class for slides 4, 6, 8, and 10 (indices 3, 5, 7, 9)
+    if (currentSlide === 3 || currentSlide === 5 || currentSlide === 7 || currentSlide === 9) {
+      document.body.className = 'theme-minimalist';
+    } else {
+      if (theme === 'vibrant') {
+        document.body.className = 'theme-vibrant';
+      } else {
+        document.body.className = 'theme-minimalist';
+      }
+    }
+    
+    if (theme === 'vibrant') {
+      themeOptVibrant.classList.add('active');
+      themeOptMinimalist.classList.remove('active');
+    } else {
+      themeOptVibrant.classList.remove('active');
+      themeOptMinimalist.classList.add('active');
+    }
+    // Resize is needed to update layout dimensions
+    resizeSlides();
+  }
+
+  // Fullscreen support
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.error(`Error requesting fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  // Event Listeners
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+  
+  themeOptVibrant.addEventListener('click', () => setTheme('vibrant'));
+  themeOptMinimalist.addEventListener('click', () => setTheme('minimalist'));
+  
+  fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'Space':
+      case 'PageDown':
+      case ' ':
+        e.preventDefault();
+        nextSlide();
+        break;
+      case 'ArrowLeft':
+      case 'PageUp':
+        e.preventDefault();
+        prevSlide();
+        break;
+      case 't':
+      case 'T':
+        // Toggle theme shortcut
+        setTheme(activeTheme === 'vibrant' ? 'minimalist' : 'vibrant');
+        break;
+      case 'f':
+      case 'F':
+        toggleFullscreen();
+        break;
+    }
+  });
+
+  // Touch navigation support (swipes)
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, false);
+
+  document.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, false);
+
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    if (touchEndX < touchStartX - swipeThreshold) {
+      nextSlide();
+    }
+    if (touchEndX > touchStartX + swipeThreshold) {
+      prevSlide();
+    }
+  }
+
+  // Interactivity for Slide 8B (Dimensión 3) Carousel
+  function setupCarouselInteractivity() {
+    const carouselCards = document.querySelectorAll('.carousel-card');
+    carouselCards.forEach(card => {
+      card.addEventListener('click', () => {
+        // Remove active class from all cards
+        carouselCards.forEach(c => c.classList.remove('active-card'));
+        // Add active class to clicked card
+        card.classList.add('active-card');
+        
+        // Smooth scroll to center of container
+        const container = card.parentElement;
+        if (container) {
+          const scrollTarget = card.offsetLeft - (container.clientWidth / 2) + (card.clientWidth / 2);
+          container.scrollTo({
+            left: scrollTarget,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  }
+
+  // Interactivity for Slide 10 3D Prism
+  function setupPrismInteractivity() {
+    const scene = document.getElementById("slide10-scene");
+    const prism = document.getElementById("slide10-prism");
+    if (!scene || !prism) return;
+
+    let currentRotateY = 0;
+    let currentRotateX = -4;
+
+    scene.addEventListener("mousemove", (event) => {
+      const rect = scene.getBoundingClientRect();
+
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const percentX = (x - centerX) / centerX;
+      const percentY = (y - centerY) / centerY;
+
+      currentRotateY = percentX * 180;
+      currentRotateX = -4 - percentY * 12;
+
+      prism.style.animation = "none";
+      prism.style.transform = `rotateY(${currentRotateY}deg) rotateX(${currentRotateX}deg)`;
+    });
+
+    scene.addEventListener("mouseleave", () => {
+      prism.style.transform = "rotateY(0deg) rotateX(-4deg)";
+
+      setTimeout(() => {
+        if (prism.style.transform === "rotateY(0deg) rotateX(-4deg)") {
+          prism.style.animation = "slide10IdleRotate 16s linear infinite";
+        }
+      }, 400);
+    });
+  }
+
+  function setupMagicRings() {
+    const mount = document.getElementById('magic-rings-mount');
+    if (!mount) return;
+
+    if (typeof THREE === 'undefined') {
+      console.error('Three.js is not loaded');
+      return;
+    }
+
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setClearColor(0x000000, 0);
+    } catch (e) {
+      console.error('WebGL init error:', e);
+      return;
+    }
+
+    mount.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0.1, 10);
+    camera.position.z = 1;
+
+    const vertexShader = `
+      void main() {
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `;
+
+    const fragmentShader = `
+      precision highp float;
+
+      uniform float uTime, uAttenuation, uLineThickness;
+      uniform float uBaseRadius, uRadiusStep, uScaleRate;
+      uniform float uOpacity, uNoiseAmount, uRotation, uRingGap;
+      uniform float uFadeIn, uFadeOut;
+      uniform float uMouseInfluence, uHoverAmount, uHoverScale, uParallax, uBurst;
+      uniform vec2 uResolution, uMouse;
+      uniform vec3 uColor, uColorTwo;
+
+      const float HP = 1.5707963;
+      const float CYCLE = 3.45;
+
+      float fade(float t) {
+        return t < uFadeIn ? smoothstep(0.0, uFadeIn, t) : 1.0 - smoothstep(uFadeOut, CYCLE - 0.2, t);
+      }
+
+      float ring(vec2 p, float ri, float cut, float t0, float px) {
+        float t = mod(uTime + t0, CYCLE);
+        float r = ri + t / CYCLE * uScaleRate;
+        float d = abs(length(p) - r);
+        float a = atan(abs(p.y), abs(p.x)) / HP;
+        float th = max(1.0 - a, 0.5) * px * uLineThickness;
+        float h = (1.0 - smoothstep(th, th * 1.5, d)) + 1.0;
+        d += pow(cut * a, 3.0) * r;
+        return h * exp(-uAttenuation * d) * fade(t);
+      }
+
+      void main() {
+        float px = 1.0 / min(uResolution.x, uResolution.y);
+        vec2 p = (gl_FragCoord.xy - 0.5 * uResolution.xy) * px;
+        float cr = cos(uRotation), sr = sin(uRotation);
+        p = mat2(cr, -sr, sr, cr) * p;
+        p -= uMouse * uMouseInfluence;
+        float sc = mix(1.0, uHoverScale, uHoverAmount) + uBurst * 0.3;
+        p /= sc;
+        vec3 c = vec3(0.0);
+        float rcf = 5.0; // Statically hardcoded for 6 rings (6 - 1)
+        for (int i = 0; i < 6; i++) {
+          float fi = float(i);
+          vec2 pr = p - fi * uParallax * uMouse;
+          vec3 rc = mix(uColor, uColorTwo, fi / rcf);
+          c = mix(c, rc, vec3(ring(pr, uBaseRadius + fi * uRadiusStep, pow(uRingGap, fi), i == 0 ? 0.0 : 2.95 * fi, px)));
+        }
+        c *= 1.0 + uBurst * 2.0;
+        float n = fract(sin(dot(gl_FragCoord.xy + uTime * 100.0, vec2(12.9898, 78.233))) * 43758.5453);
+        c += (n - 0.5) * uNoiseAmount;
+        gl_FragColor = vec4(c, max(c.r, max(c.g, c.b)) * uOpacity);
+      }
+    `;
+
+    const uniforms = {
+      uTime: { value: 0 },
+      uAttenuation: { value: 10.0 },
+      uResolution: { value: new THREE.Vector2() },
+      uColor: { value: new THREE.Color('#A855F7') }, // Purple
+      uColorTwo: { value: new THREE.Color('#6366F1') }, // Indigo
+      uLineThickness: { value: 2.0 },
+      uBaseRadius: { value: 0.35 },
+      uRadiusStep: { value: 0.1 },
+      uScaleRate: { value: 0.1 },
+      uOpacity: { value: 0.65 },
+      uNoiseAmount: { value: 0.1 },
+      uRotation: { value: 0.0 },
+      uRingGap: { value: 1.5 },
+      uFadeIn: { value: 0.7 },
+      uFadeOut: { value: 0.5 },
+      uMouse: { value: new THREE.Vector2() },
+      uMouseInfluence: { value: 0.0 }, // followMouse = false
+      uHoverAmount: { value: 0 },
+      uHoverScale: { value: 1.2 },
+      uParallax: { value: 0.05 },
+      uBurst: { value: 0 },
+    };
+
+    const material = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      uniforms,
+      transparent: true,
+    });
+    
+    const quad = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+    scene.add(quad);
+
+    const resize = () => {
+      const w = mount.clientWidth;
+      const h = mount.clientHeight;
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      renderer.setSize(w, h);
+      renderer.setPixelRatio(dpr);
+      uniforms.uResolution.value.set(w * dpr, h * dpr);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(resize);
+      ro.observe(mount);
+    }
+
+    const mouse = [0, 0];
+    const smoothMouse = [0, 0];
+    let isHovered = false;
+    let hoverAmount = 0;
+    let burst = 0;
+
+    const onMouseMove = (e) => {
+      const rect = mount.getBoundingClientRect();
+      mouse[0] = (e.clientX - rect.left) / rect.width - 0.5;
+      mouse[1] = -((e.clientY - rect.top) / rect.height - 0.5);
+    };
+    const onMouseEnter = () => { isHovered = true; };
+    const onMouseLeave = () => {
+      isHovered = false;
+      mouse[0] = 0;
+      mouse[1] = 0;
+    };
+    const onClick = () => { burst = 1.0; };
+
+    mount.addEventListener('mousemove', onMouseMove);
+    mount.addEventListener('mouseenter', onMouseEnter);
+    mount.addEventListener('mouseleave', onMouseLeave);
+    mount.addEventListener('click', onClick);
+
+    let frameId;
+    const animate = (t) => {
+      frameId = requestAnimationFrame(animate);
+
+      // CPU optimization: only render when the minimalist cover slide is active
+      const activeSlide = document.querySelector('.slide.active');
+      if (!activeSlide || activeSlide.id !== 'slide-minimalist-cover') {
+        return;
+      }
+
+      smoothMouse[0] += (mouse[0] - smoothMouse[0]) * 0.08;
+      smoothMouse[1] += (mouse[1] - smoothMouse[1]) * 0.08;
+      hoverAmount += ((isHovered ? 1 : 0) - hoverAmount) * 0.08;
+      uniforms.uTime.value = t * 0.001 * 1.0; // speed = 1.0
+      uniforms.uMouse.value.set(smoothMouse[0], smoothMouse[1]);
+      uniforms.uHoverAmount.value = hoverAmount;
+      uniforms.uBurst.value = burst;
+
+      try {
+        renderer.render(scene, camera);
+      } catch (err) {
+        console.error("WebGL render error, stopping loop:", err);
+        cancelAnimationFrame(frameId);
+      }
+    };
+    frameId = requestAnimationFrame(animate);
+  }
+
+  // Initialize
+  initPresentation();
+});

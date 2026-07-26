@@ -1,0 +1,2955 @@
+/* ==========================================================================
+   CSS PRESENTATION DESIGN SYSTEM - THE COMPLEXITY OF SCHOOL LEADERSHIP
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,400&family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Poppins:ital,wght@0,300;0,400;0,600;0,800;1,400&family=Playball&display=swap');
+
+/* ==========================================================================
+   THEME VARIABLES
+   ========================================================================== */
+
+:root {
+  --slide-width: 1280px;
+  --slide-height: 720px;
+  --transition-speed: 0.5s;
+  --transition-cubic: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 1. TEMA VIBRANTE GEOMÉTRICO (Active colors, gradients, soft shadows, curves) */
+body.theme-vibrant {
+  --color-primary: #FF5722;
+  --color-primary-rgb: 255, 87, 34;
+  --color-secondary: #FF9800;
+  --color-bg-light: #F8F9FA;
+  --color-bg-dark: #1C1C21;
+  --color-bg-card: #FFFFFF;
+  --color-text-main: #1C1C21;
+  --color-text-secondary: #6C757D;
+  --color-border: #E9ECEF;
+  
+  /* Infographic accents */
+  --color-accent-green: #4CAF50;
+  --color-accent-yellow: #FFC107;
+  --color-accent-purple: #9C27B0;
+  --color-accent-cyan: #00BCD4;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #FF9800 0%, #FF5722 100%);
+  --gradient-overlay: linear-gradient(135deg, rgba(255, 87, 34, 0.75) 0%, rgba(255, 152, 0, 0.75) 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(255, 87, 34, 0.05) 0%, rgba(255, 152, 0, 0.05) 100%);
+  
+  /* Fonts */
+  --font-titles: 'Montserrat', 'Poppins', sans-serif;
+  --font-body: 'Open Sans', 'Roboto', sans-serif;
+  --font-accent: 'Poppins', sans-serif;
+  --font-weight-title: 800;
+  --font-weight-body: 400;
+  --font-size-base: 14px;
+  --line-height-base: 1.6;
+  
+  /* Shadows & Radius */
+  --shadow-card: 0px 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-info: 0px 4px 15px rgba(255, 87, 34, 0.25);
+  --border-radius-card: 16px;
+  --border-radius-pill: 50px;
+  --border-card: 1px solid rgba(255, 87, 34, 0.08);
+  
+  /* Background Canvas */
+  --bg-pattern: radial-gradient(circle, rgba(255, 87, 34, 0.04) 1px, transparent 1px) 0 0 / 24px 24px;
+  --bg-color: #F8F9FA;
+}
+
+/* 2. TEMA MINIMALISTA MONOCROMÁTICO (Editorial, high contrast, grids, stars) */
+body.theme-minimalist {
+  --color-primary: #000000;
+  --color-primary-rgb: 0, 0, 0;
+  --color-secondary: #000000;
+  --color-bg-light: #FFFFFF;
+  --color-bg-dark: #000000;
+  --color-bg-card: #FFFFFF;
+  --color-text-main: #000000;
+  --color-text-secondary: #707070;
+  --color-border: #E0E0E0;
+  
+  /* Infographic accents (restricted in mono) */
+  --color-accent-green: #333333;
+  --color-accent-yellow: #555555;
+  --color-accent-purple: #777777;
+  --color-accent-cyan: #999999;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(90deg, #000000 0%, #333333 100%);
+  --gradient-overlay: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.85) 100%);
+  --gradient-subtle: linear-gradient(to bottom, #FFFFFF 0%, #F5F5F5 100%);
+  
+  /* Fonts */
+  --font-titles: 'Lato', 'Futura', sans-serif;
+  --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-accent: 'Playball', 'Great Vibes', Georgia, serif;
+  --font-weight-title: 300;
+  --font-weight-body: 300;
+  --font-size-base: 13px;
+  --line-height-base: 1.8;
+  
+  /* Shadows & Radius */
+  --shadow-card: none;
+  --shadow-info: none;
+  --border-radius-card: 0px;
+  --border-radius-pill: 0px;
+  --border-card: 1px solid #E0E0E0;
+  
+  /* Background Canvas */
+  --bg-pattern: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px) 0 0 / 50px 50px,
+                 linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px) 0 0 / 50px 50px;
+  --bg-color: #FFFFFF;
+}
+
+/* ==========================================================================
+   BASE & LAYOUT STYLES
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-main);
+  background-color: var(--bg-color);
+  background-image: var(--bg-pattern);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  transition: background var(--transition-speed), color var(--transition-speed);
+}
+
+/* Presentation Container (Aspect Ratio Scale System) */
+.viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.presentation-outer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.presentation-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-bg-card);
+  box-shadow: none;
+  overflow: hidden;
+  border-radius: 0;
+  border: none;
+  transition: background-color var(--transition-speed);
+}
+
+body.theme-minimalist .presentation-container {
+  box-shadow: none;
+}
+
+/* Slide Deck Styling */
+.slide-deck {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 50px 70px;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96) translateY(10px);
+  transition: opacity var(--transition-speed) var(--transition-cubic), 
+              transform var(--transition-speed) var(--transition-cubic),
+              visibility var(--transition-speed);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 24px;
+  overflow: hidden;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   DECORATIVE ELEMENTS
+   ========================================================================== */
+
+/* Vibrante Geométrico Shapes */
+.vibrant-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  display: none;
+}
+
+body.theme-vibrant .vibrant-shapes {
+  display: block;
+}
+
+.shape {
+  position: absolute;
+  background: var(--gradient-primary);
+  opacity: 0.08;
+  filter: blur(1px);
+}
+
+.shape-1 {
+  width: 250px;
+  height: 250px;
+  top: -100px;
+  left: -100px;
+  border-radius: 50%;
+}
+
+.shape-2 {
+  width: 300px;
+  height: 150px;
+  bottom: -50px;
+  right: -50px;
+  transform: rotate(45deg);
+}
+
+.shape-3 {
+  width: 60px;
+  height: 60px;
+  top: 150px;
+  right: 120px;
+  transform: rotate(15deg);
+  border-radius: 12px;
+}
+
+.shape-4 {
+  width: 40px;
+  height: 40px;
+  bottom: 120px;
+  left: 100px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background: var(--color-secondary);
+}
+
+/* Minimalist Grids */
+.minimalist-grids {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  border: 20px solid #FFFFFF;
+  display: none;
+  box-sizing: border-box;
+}
+
+body.theme-minimalist .minimalist-grids {
+  display: block;
+}
+
+.grid-line-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--color-border);
+}
+
+.grid-line-h {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-titles);
+  font-weight: var(--font-weight-title);
+  color: var(--color-text-main);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.6em;
+  letter-spacing: -0.5px;
+}
+
+body.theme-minimalist h1 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h2 {
+  font-size: 1.8em;
+  position: relative;
+  z-index: 2;
+}
+
+body.theme-vibrant h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 60px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+body.theme-minimalist h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 40px;
+  height: 1px;
+  background: var(--color-primary);
+}
+
+h3 {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+p {
+  color: var(--color-text-main);
+  z-index: 1;
+}
+
+/* Custom Highlight styles */
+.highlight-text {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.accent-script {
+  font-family: var(--font-accent);
+  font-size: 1.3em;
+  font-style: italic;
+  font-weight: normal;
+  display: inline-block;
+}
+
+body.theme-vibrant .accent-script {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--gradient-subtle);
+  padding: 0 6px;
+  border-radius: 4px;
+  font-style: normal;
+  font-size: 1em;
+}
+
+/* Card system */
+.card {
+  border-radius: var(--border-radius-card);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+body.theme-vibrant .card {
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(12px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+  border: 3px solid var(--color-primary) !important;
+  box-shadow: 0px 10px 30px rgba(255, 87, 34, 0.1) !important;
+}
+
+body.theme-minimalist .card {
+  background: #FFFFFF !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+}
+
+body.theme-vibrant .card:hover,
+body.theme-minimalist .card:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.theme-vibrant .card:hover *,
+body.theme-minimalist .card:hover * {
+  color: #FFFFFF !important;
+}
+
+/* Slide structures */
+.slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 15px;
+  z-index: 10;
+}
+
+.slide-header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-category {
+  font-family: var(--font-titles);
+  text-transform: uppercase;
+  font-size: 0.75em;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.slide-header h2 {
+  font-size: 1.6em;
+  margin: 0;
+}
+
+body.theme-vibrant .slide-header h2::after,
+body.theme-minimalist .slide-header h2::after {
+  display: none;
+}
+
+.slide-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Bullet markers */
+ul {
+  list-style: none;
+}
+
+li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px;
+}
+
+body.theme-vibrant li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+}
+
+body.theme-minimalist li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-primary);
+  font-size: 0.9em;
+}
+
+/* Quotes */
+blockquote {
+  border-left: 4px solid var(--color-primary);
+  padding-left: 15px;
+  margin: 15px 0;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+body.theme-minimalist blockquote {
+  border-left: 1px solid var(--color-primary);
+  font-family: var(--font-body);
+}
+
+/* ==========================================================================
+   SPECIFIC SLIDE LAYOUTS
+   ========================================================================== */
+
+/* Diapositiva 1 - Portada */
+.slide-cover {
+  grid-template-rows: 1fr;
+  padding: 0;
+  background-color: var(--color-bg-card);
+}
+
+.cover-grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  height: 100%;
+  width: 100%;
+}
+
+.cover-top-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.cover-left {
+  padding: 45px 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: transparent !important;
+  position: relative;
+  z-index: 10;
+}
+
+body.theme-vibrant .project-tag {
+  font-family: var(--font-titles);
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: rgba(255, 87, 34, 0.08);
+  padding: 5px 12px;
+  border-radius: var(--border-radius-pill);
+}
+
+body.theme-minimalist .project-tag {
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  padding: 5px 12px;
+  border-radius: var(--border-radius-pill);
+}
+
+/* Giant "2°" Title Layout System (CSS Grid for optical alignment) */
+.cover-title-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  align-items: center; /* Vertically center the number and the black title only */
+  column-gap: 25px;
+  row-gap: 8px;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.giant-number-2 {
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-titles);
+  font-size: 8.8em !important;
+  font-weight: 900 !important;
+  line-height: 0.75 !important;
+  color: var(--color-primary);
+  letter-spacing: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+body.theme-minimalist .giant-number-2 {
+  color: #000000;
+}
+
+.cover-main-title {
+  grid-column: 2;
+  grid-row: 1;
+  font-family: var(--font-titles);
+  font-size: 3.4em !important; /* Increased by 40% (base was 2.4em) */
+  font-weight: 800 !important; /* Bold */
+  color: var(--color-text-main) !important; /* Black */
+  line-height: 1.05 !important;
+  margin: 0 !important;
+  letter-spacing: -1.5px !important;
+  text-align: left !important;
+}
+
+body.theme-minimalist .cover-main-title {
+  color: #000000 !important;
+  font-weight: 750 !important;
+}
+
+.cover-sub-title {
+  grid-column: 2;
+  grid-row: 2;
+  font-family: var(--font-titles);
+  font-size: 2.0em !important; /* Increased by 40% */
+  font-weight: 400 !important; /* Not bold */
+  color: var(--color-primary) !important; /* Orange */
+  line-height: 1.15 !important;
+  margin: 0 !important;
+  letter-spacing: -0.5px !important;
+  text-align: left !important;
+}
+
+body.theme-minimalist .cover-sub-title {
+  color: #555555 !important;
+}
+
+.cover-titles h3 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  font-size: 1.15em;
+}
+
+.cover-credits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  font-size: 0.85em;
+}
+
+.cover-credits strong {
+  display: block;
+  font-family: var(--font-titles);
+  font-size: 0.85em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.cover-credits p {
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.cover-right {
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transition: filter var(--transition-speed);
+}
+
+body.theme-minimalist .cover-image {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.cover-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: background var(--transition-speed);
+}
+
+body.theme-vibrant .cover-image-overlay {
+  background: var(--gradient-overlay);
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+}
+
+body.theme-minimalist .cover-image-overlay {
+  background: linear-gradient(to right, var(--color-bg-light) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.cover-image-tag {
+  position: absolute;
+  bottom: 45px; /* Aligned to the bottom line of the left column purpose boxes */
+  right: 30px;
+  width: calc(45vw - 60px); /* Maintains original width before 65% stretch */
+  background: rgba(28, 28, 33, 0.85);
+  backdrop-filter: blur(5px);
+  padding: 18px 25px;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 0.95em;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 10;
+}
+
+body.theme-minimalist .cover-image-tag {
+  background: #FFFFFF;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 0;
+}
+
+.cover-image-tag p {
+  color: inherit;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cover-image-tag strong {
+  display: block;
+  font-size: 1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+/* Diapositiva 2 - Contextualización */
+.slide-context-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.context-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.context-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-titles);
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: -10px;
+}
+
+.context-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.context-item {
+  display: flex;
+  gap: 15px;
+}
+
+.context-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gradient-subtle);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+  border: 1px solid rgba(255, 87, 34, 0.1);
+}
+
+body.theme-minimalist .context-icon {
+  border-radius: 0;
+  border: 1px solid #000000;
+  background: #FFFFFF;
+  color: #000000;
+}
+
+.context-item-text h4 {
+  font-size: 1.05em;
+  margin-bottom: 2px;
+}
+
+.context-item-text p {
+  color: var(--color-text-secondary);
+  font-size: 0.9em;
+}
+
+.context-right-card {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--color-bg-card);
+  border: var(--border-card);
+  border-radius: var(--border-radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+body.theme-vibrant .context-right-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFDFB 100%);
+}
+
+/* Diapositiva 2 - Rediseño de Equipo de Trabajo */
+.slide-team-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 15px;
+}
+
+.team-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.team-section-title {
+  font-family: var(--font-titles);
+  font-size: 0.85em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+body.theme-minimalist .team-section-title {
+  border-bottom-color: #000000;
+}
+
+.academics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.researchers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.team-card-large {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 30px;
+}
+
+.team-card-small {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  gap: 12px;
+}
+
+.team-photo-circle-wrapper {
+  width: 208px;
+  height: 208px;
+  border-radius: 50% !important;
+  overflow: hidden;
+  border: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-infografias);
+  flex-shrink: 0;
+  transition: transform 0.4s var(--transition-cubic), box-shadow 0.4s var(--transition-cubic);
+}
+
+body.theme-minimalist .team-photo-circle-wrapper {
+  border: 1px solid #000000;
+  box-shadow: none;
+}
+
+.team-photo-circle-wrapper:hover,
+.researcher-photo-circle-wrapper:hover {
+  transform: scale(1.12);
+  box-shadow: 0px 8px 25px rgba(255, 87, 34, 0.3);
+}
+
+body.theme-minimalist .team-photo-circle-wrapper:hover,
+body.theme-minimalist .researcher-photo-circle-wrapper:hover {
+  box-shadow: none;
+  transform: scale(1.12);
+}
+
+.team-photo-circle {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter var(--transition-speed);
+}
+
+body.theme-minimalist .team-photo-circle {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.researcher-photo-circle-wrapper {
+  width: 117px;
+  height: 117px;
+  border-radius: 50% !important;
+  overflow: hidden;
+  border: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-infografias);
+  flex-shrink: 0;
+  transition: transform 0.4s var(--transition-cubic), box-shadow 0.4s var(--transition-cubic);
+}
+
+body.theme-minimalist .researcher-photo-circle-wrapper {
+  border: 1px solid #000000;
+  box-shadow: none;
+}
+
+.researcher-photo-circle-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.researcher-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter var(--transition-speed);
+}
+
+body.theme-minimalist .researcher-photo {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.team-card-info h4 {
+  font-family: var(--font-titles);
+  font-size: 1.05em;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+body.theme-minimalist .team-card-info h4 {
+  font-weight: 400;
+}
+
+.role-primary {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+body.theme-minimalist .role-primary {
+  color: #000000;
+}
+
+.role-desc {
+  font-size: 0.85em;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.role-sec {
+  font-size: 0.85em;
+  color: var(--color-text-secondary);
+}
+
+.team-metadata-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.0em;
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-border);
+  padding-top: 10px;
+}
+
+body.theme-minimalist .team-metadata-footer {
+  border-top-color: #000000;
+}
+
+.meta-dot {
+  color: var(--color-primary);
+}
+
+body.theme-minimalist .meta-dot {
+  color: #000000;
+}
+
+/* Diapositiva 3 - Bento Grid y Proporcionalidad */
+.bento-slide-3 {
+  display: grid;
+  grid-template-columns: 32% 68%;
+  gap: 20px;
+  height: 100%;
+  align-items: stretch;
+}
+
+.bento-card {
+  transition: all 0.4s var(--transition-cubic) !important;
+}
+
+.bento-main-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+  
+  /* Estado por defecto (sacar el mouse): se queda blurish */
+  filter: blur(14px);
+  opacity: 0.7;
+  transition: all 0.5s ease !important;
+}
+
+.bento-main-card:hover {
+  /* Al pasar el mouse: aparece (sin blur) y cambia de color */
+  filter: blur(0px);
+  opacity: 1;
+  background-color: var(--color-primary) !important;
+}
+
+.bento-main-card:hover .bento-main-num,
+.bento-main-card:hover .bento-main-label,
+.bento-main-card:hover .bento-main-sub,
+.bento-main-card:hover .bento-main-badge {
+  color: #000000 !important;
+  border-color: #000000 !important;
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.bento-main-num {
+  font-family: var(--font-titles);
+  font-size: 12.5em;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 0.8;
+  letter-spacing: -6px;
+  margin-bottom: 0px;
+  transition: color 0.3s ease;
+}
+
+body.theme-minimalist .bento-main-num {
+  font-weight: 300;
+  letter-spacing: -5px;
+}
+
+.bento-main-label {
+  font-family: var(--font-titles);
+  font-size: 0.9em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.bento-main-sub {
+  font-size: 0.75em;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin-bottom: 18px;
+}
+
+.bento-main-badge {
+  font-family: var(--font-titles);
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-primary);
+  background: rgba(255, 87, 34, 0.08);
+  padding: 5px 12px;
+  border-radius: var(--border-radius-pill);
+}
+
+body.theme-minimalist .bento-main-badge {
+  border: 1px solid #000000;
+  background: transparent;
+  color: #000000;
+}
+
+.bento-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.bento-row {
+  display: flex;
+  gap: 20px;
+}
+
+.bento-row-1 {
+  flex: 54; /* Height proportion (larger counts) */
+}
+
+.bento-row-2 {
+  flex: 46; /* Height proportion */
+}
+
+/* Proportional widths using flex-grow */
+.bento-dim-2 {
+  flex: 452;
+  filter: blur(1.5px);
+  opacity: 0.55;
+  transform: scale(0.98);
+}
+
+.bento-dim-2:hover {
+  filter: blur(0px) !important;
+  opacity: 1 !important;
+  transform: scale(1.02) !important;
+}
+
+.bento-dim-3 {
+  flex: 447;
+}
+
+.bento-dim-1 {
+  flex: 228;
+}
+
+.bento-dim-4 {
+  flex: 174;
+}
+
+.bento-dim {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 22px;
+}
+
+.bento-dim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.bento-dim-title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bento-dim-code {
+  font-family: var(--font-titles);
+  font-size: 0.85em;
+  font-weight: 800;
+  color: var(--color-primary);
+  background: rgba(255, 87, 34, 0.08);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+body.theme-minimalist .bento-dim-code {
+  border: 1px solid #000000;
+  background: transparent;
+  color: #000000;
+}
+
+.bento-dim-name {
+  font-family: var(--font-titles);
+  font-size: 0.85em;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.bento-dim-badge {
+  font-family: var(--font-titles);
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+body.theme-minimalist .bento-dim-badge {
+  border: 1px solid var(--color-border);
+  background: transparent;
+}
+
+.bento-dim-badge-foco {
+  font-family: var(--font-titles);
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: rgba(255, 87, 34, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+body.theme-minimalist .bento-dim-badge-foco {
+  border: 1px solid var(--color-primary);
+  background: transparent;
+}
+
+.bento-dim-num {
+  font-family: var(--font-titles);
+  font-size: 7.5em;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 0.85;
+  margin: 0px 0px 2px 0px;
+  letter-spacing: -4px;
+  transition: color 0.3s ease;
+}
+
+body.theme-minimalist .bento-dim-num {
+  font-weight: 300;
+  letter-spacing: -3px;
+}
+
+.bento-dim-title {
+  font-weight: 700;
+  font-size: 0.85em;
+  line-height: 1.25;
+  margin-bottom: 4px;
+  color: var(--color-text-main);
+}
+
+.bento-dim-label {
+  font-size: 0.65em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+}
+
+/* Accent for highlights */
+.highlight-foco {
+  border-left: 3px solid var(--color-primary);
+}
+
+body.theme-minimalist .highlight-foco {
+  border-left: 1px solid #000000;
+}
+
+/* Diapositiva 4 - ¿Qué tienen en mente los directivos? */
+.slide-mindset-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.mindset-prompt {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 15px auto;
+}
+
+.mindset-prompt h3 {
+  font-size: 1.8em;
+  line-height: 1.3;
+  color: var(--color-primary);
+  font-weight: 300;
+  font-style: italic;
+}
+
+body.theme-vibrant .mindset-prompt h3 {
+  font-family: var(--font-titles);
+  font-weight: 800;
+  font-style: normal;
+}
+
+.mindset-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.mindset-column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mindset-column h4 {
+  font-family: var(--font-titles);
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 6px;
+  margin-bottom: 5px;
+}
+
+body.theme-minimalist .mindset-column h4 {
+  border-bottom: 1px solid #000000;
+}
+
+.mindset-pill {
+  padding: 12px 18px;
+  background-color: var(--color-bg-card);
+  border-radius: var(--border-radius-card);
+  border: var(--border-card);
+  box-shadow: var(--shadow-card);
+  font-size: 0.9em;
+}
+
+.mindset-column-right .mindset-pill {
+  border-left: 4px solid var(--color-primary);
+}
+
+body.theme-vibrant .mindset-column-right .mindset-pill {
+  background: linear-gradient(to right, rgba(255, 87, 34, 0.03) 0%, transparent 100%);
+}
+
+body.theme-minimalist .mindset-column-right .mindset-pill {
+  border-left: 2px solid #000000;
+  background: #F9F9F9;
+}
+
+/* Diapositiva 5 - Trazabilidad y Naturaleza del Registro */
+.slide-trace-layout {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 30px;
+  align-items: center;
+}
+
+.trace-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.trace-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+}
+
+.trace-step {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.trace-step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+body.theme-minimalist .trace-step-num {
+  border-radius: 0;
+  background: #000000;
+}
+
+.trace-step-text {
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.trace-arrow {
+  width: 2px;
+  height: 20px;
+  background: var(--color-primary);
+  margin-left: 15px;
+  opacity: 0.5;
+}
+
+body.theme-minimalist .trace-arrow {
+  background: #000000;
+}
+
+.trace-comparison-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.trace-table-card {
+  padding: 20px;
+}
+
+.trace-table-card h4 {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  color: var(--color-primary);
+}
+
+.trace-table-card p {
+  font-size: 0.9em;
+  color: var(--color-text-secondary);
+}
+
+/* Diapositiva 6 - Respuesta Escalonada */
+.slide-response-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.response-steps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 10px;
+}
+
+.response-step-card {
+  padding: 24px;
+}
+
+.response-step-card.active-step {
+  border-color: var(--color-primary);
+}
+
+body.theme-vibrant .response-step-card.active-step {
+  box-shadow: var(--shadow-info);
+  background: var(--gradient-subtle);
+}
+
+body.theme-minimalist .response-step-card.active-step {
+  border: 2px solid #000000;
+  background: #F5F5F5;
+}
+
+.response-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.response-badge {
+  font-family: var(--font-titles);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85em;
+}
+
+body.theme-minimalist .response-badge {
+  border-radius: 0;
+  background: #000000;
+}
+
+.response-step-header h4 {
+  font-size: 1.1em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.response-step-card p {
+  font-size: 0.9em;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.response-quote-card {
+  padding: 20px;
+  border-left: 4px solid var(--color-primary);
+  background: var(--gradient-subtle);
+  border-radius: var(--border-radius-card);
+}
+
+body.theme-minimalist .response-quote-card {
+  border-left: 1px solid #000000;
+  background: #F9F9F9;
+}
+
+.response-quote-card blockquote {
+  border-left: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 1.1em;
+  color: var(--color-text-main);
+  line-height: 1.5;
+}
+
+.response-quote-card cite {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8em;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Diapositiva 7 - Agenda Corta vs Larga */
+.slide-strangle-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.agenda-tensions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.tension-box {
+  padding: 25px;
+  border-radius: var(--border-radius-card);
+  border: var(--border-card);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.tension-box.short-agenda {
+  border-top: 6px solid var(--color-primary);
+}
+
+.tension-box.long-agenda {
+  border-top: 6px solid var(--color-accent-cyan);
+}
+
+body.theme-minimalist .tension-box.short-agenda,
+body.theme-minimalist .tension-box.long-agenda {
+  border: 1px solid #000000;
+}
+
+.tension-box h4 {
+  font-family: var(--font-titles);
+  text-transform: uppercase;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.tension-box.short-agenda h4 {
+  color: var(--color-primary);
+}
+
+.tension-box.long-agenda h4 {
+  color: var(--color-accent-cyan);
+}
+
+body.theme-minimalist .tension-box.long-agenda h4 {
+  color: #000000;
+}
+
+.tension-box p {
+  font-size: 0.9em;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+}
+
+.strangle-metaphor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background: var(--gradient-subtle);
+  padding: 20px;
+  border-radius: var(--border-radius-card);
+  border: var(--border-card);
+  text-align: center;
+}
+
+body.theme-minimalist .strangle-metaphor {
+  background: #FFFFFF;
+  border: 1px solid #000000;
+}
+
+.strangle-label {
+  font-family: var(--font-titles);
+  font-size: 1.2em;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.strangle-symbol {
+  font-size: 1.6em;
+  color: var(--color-primary);
+  animation: squeeze 2s infinite ease-in-out;
+}
+
+@keyframes squeeze {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.7); }
+}
+
+.strangle-evidences {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.evidence-subcard {
+  padding: 15px;
+  background: rgba(255,255,255,0.6);
+  border-left: 3px solid var(--color-primary);
+}
+
+body.theme-minimalist .evidence-subcard {
+  background: #F9F9F9;
+  border-left: 1px solid #000000;
+}
+
+.evidence-subcard h5 {
+  font-size: 0.9em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.evidence-subcard p {
+  font-size: 0.85em;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Diapositiva 8 - Preguntas detonantes */
+.slide-questions-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.questions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.question-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.question-num {
+  font-family: var(--font-titles);
+  font-size: 2em;
+  font-weight: 800;
+  color: rgba(255, 87, 34, 0.2);
+  line-height: 1;
+  margin-bottom: 10px;
+  transition: color var(--transition-speed);
+}
+
+body.theme-minimalist .question-num {
+  color: #E0E0E0;
+}
+
+.question-card:hover .question-num {
+  color: var(--color-primary);
+}
+
+.question-card p {
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: var(--color-text-main);
+  margin-bottom: 15px;
+}
+
+.question-theme-tag {
+  font-family: var(--font-titles);
+  text-transform: uppercase;
+  font-size: 0.7em;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--gradient-subtle);
+  padding: 3px 8px;
+  align-self: flex-start;
+  border-radius: var(--border-radius-pill);
+}
+
+body.theme-minimalist .question-theme-tag {
+  border: 1px solid #000000;
+  background: transparent;
+  color: #000000;
+}
+
+.questions-footer {
+  text-align: center;
+  font-style: italic;
+  font-size: 1em;
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-border);
+  padding-top: 15px;
+}
+
+
+
+/* ==========================================================================
+   PRESENTATION CONTROLS (BOTTOM TOOLBAR)
+   ========================================================================== */
+
+.presentation-controls {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(28, 28, 33, 0.15); /* highly transparent when idle */
+  backdrop-filter: blur(8px);
+  padding: 10px 20px;
+  border-radius: var(--border-radius-pill);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  opacity: 0.15; /* almost completely transparent when idle to prevent covering slide content */
+  transition: opacity 0.3s ease, transform 0.3s var(--transition-cubic), background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.presentation-controls:hover {
+  transform: translateX(-50%) translateY(-2px);
+  opacity: 1; /* fully visible on hover */
+  background: rgba(28, 28, 33, 0.85); /* dark contrast background on hover for legibility */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.control-btn {
+  background: transparent;
+  border: none;
+  color: #E0E0E0;
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.control-btn.active {
+  color: var(--color-primary);
+  background: rgba(255, 87, 34, 0.15);
+}
+
+.control-divider {
+  width: 1px;
+  height: 20px;
+  background-color: rgba(255,255,255,0.15);
+}
+
+.slide-counter {
+  color: #E0E0E0;
+  font-family: var(--font-titles);
+  font-size: 0.9em;
+  font-weight: 600;
+  min-width: 45px;
+  text-align: center;
+}
+
+.theme-selector {
+  display: flex;
+  background: rgba(0,0,0,0.3);
+  padding: 3px;
+  border-radius: var(--border-radius-pill);
+}
+
+.theme-opt {
+  padding: 5px 12px;
+  font-family: var(--font-titles);
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #B0BEC5;
+  border-radius: var(--border-radius-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-opt.active {
+  background: var(--gradient-primary);
+  color: #FFFFFF;
+}
+
+body.theme-minimalist .theme-opt.active {
+  background: #FFFFFF;
+  color: #000000;
+}
+
+/* ==========================================================================
+   PROGRESS BAR
+   ========================================================================== */
+
+.progress-bar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: rgba(0,0,0,0.05);
+  z-index: 100;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gradient-primary);
+  transition: width 0.3s ease;
+}
+
+body.theme-minimalist .progress-bar-fill {
+  background: #000000;
+}
+
+/* Swipe Indicator Helper */
+.swipe-hint {
+  position: absolute;
+  bottom: 15px;
+  right: 25px;
+  color: var(--color-text-secondary);
+  font-size: 0.75em;
+  opacity: 0.5;
+  pointer-events: none;
+  font-family: var(--font-titles);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Print/export adjustments */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    overflow: visible;
+  }
+  .presentation-controls, .notes-panel, .progress-bar-container {
+    display: none !important;
+  }
+  .presentation-container {
+    transform: none !important;
+    box-shadow: none !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  .slide {
+    position: relative !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    page-break-after: always;
+    height: 100vh !important;
+  }
+}
+
+/* ==========================================================================
+   FACULTY LOGO & LEADER PORTRAITS LAYOUT
+   ========================================================================== */
+
+.fac-educ-logo {
+  height: 28px;
+  object-fit: contain;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+body.theme-minimalist .fac-educ-logo {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.leaders-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.leader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.leader-photo-wrapper {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 6px;
+  position: relative;
+  transition: border-color var(--transition-speed), border-radius var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+body.theme-vibrant .leader-photo-wrapper {
+  border-color: var(--color-primary);
+  box-shadow: 0px 4px 10px rgba(255, 87, 34, 0.2);
+}
+
+body.theme-minimalist .leader-photo-wrapper {
+  border-radius: 0px;
+  border: 1px solid #000000;
+  box-shadow: none;
+}
+
+.leader-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter var(--transition-speed);
+}
+
+body.theme-minimalist .leader-photo {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.leader-info h4 {
+  font-family: var(--font-titles);
+  font-size: 0.95em;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+
+.leader-info p {
+  font-size: 0.75em;
+  color: var(--color-text-secondary);
+}
+
+/* Faculty logo main slide styling */
+.fac-educ-logo-main {
+  height: 66px;
+  width: auto;
+  object-fit: contain;
+  transition: filter var(--transition-speed);
+}
+
+body.theme-minimalist .fac-educ-logo-main {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+/* Diapositiva 2 (Nueva) - Conversatorio Layout */
+.slide-conversatorio-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.conversatorio-title-banner {
+  background: var(--gradient-primary);
+  padding: 15px 30px;
+  border-radius: var(--border-radius-card);
+  box-shadow: var(--shadow-infografias);
+  color: #FFFFFF;
+}
+
+body.theme-minimalist .conversatorio-title-banner {
+  background: #000000;
+  border-radius: 0;
+  border: 1px solid #000000;
+  box-shadow: none;
+}
+
+.conversatorio-title-banner h3 {
+  font-family: var(--font-titles);
+  font-size: 1.5em;
+  font-weight: 800;
+  margin: 0;
+  text-align: center;
+}
+
+body.theme-minimalist .conversatorio-title-banner h3 {
+  font-weight: 300;
+}
+
+.conversatorio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  flex: 1;
+}
+
+.conversatorio-card {
+  padding: 30px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: transform 0.3s ease;
+}
+
+.conversatorio-card:hover {
+  transform: translateY(-3px);
+}
+
+.card-header-icon {
+  font-size: 2.2em;
+  line-height: 1;
+  background: rgba(255, 87, 34, 0.08);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+body.theme-minimalist .card-header-icon {
+  background: transparent;
+  border: 1px solid #000000;
+  border-radius: 0;
+}
+
+.conversatorio-card-content h4 {
+  font-family: var(--font-titles);
+  font-size: 1.25em;
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: var(--color-primary);
+}
+
+body.theme-minimalist .conversatorio-card-content h4 {
+  color: #000000;
+  font-weight: 700;
+}
+
+.conversatorio-card-content p {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: var(--color-text-main);
+}
+
+/* Cover slide purpose and objective boxes */
+/* Cover slide purpose and objective boxes */
+.cover-purpose-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.cover-purpose-box {
+  padding: 15px 20px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.cover-purpose-box strong {
+  font-family: var(--font-titles);
+  font-size: 0.9em;
+  text-transform: uppercase;
+  color: var(--color-primary) !important;
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+body.theme-minimalist .cover-purpose-box strong {
+  color: #000000 !important;
+}
+
+.cover-purpose-box p {
+  font-size: 0.85em;
+  line-height: 1.45;
+  color: var(--color-text-main) !important;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+body.theme-minimalist .cover-purpose-box p {
+  color: #333333 !important;
+}
+
+/* ==========================================================================
+   PITCH DECK OVERRIDES (SLIDE 4 ONWARDS) - PITCH SLIDE TEMPLATE
+   ========================================================================== */
+
+/* Pitch Slide Layout (Applied from Slide 4 onwards) */
+.pitch-slide {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 40px 60px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body.theme-vibrant .pitch-slide {
+  background: linear-gradient(135deg, #ef5b3f 0%, #f7a931 100%) !important;
+}
+
+body.theme-minimalist .pitch-slide:not(#slide-minimalist-cover) {
+  background: #000000 !important;
+}
+
+/* Hide background shapes/grids for Slide 4 onwards */
+.pitch-deck-mode .vibrant-shapes,
+.pitch-deck-mode .minimalist-grids {
+  display: none !important;
+}
+
+/* Slide Content Container */
+.pitch-slide__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1100px;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Eyebrow Label */
+.pitch-slide__eyebrow {
+  display: inline-block;
+  font-family: var(--font-titles);
+  font-size: 0.85em !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+  text-transform: uppercase;
+  letter-spacing: 2px !important;
+  background: transparent !important;
+  border: 2px solid #FFFFFF !important;
+  padding: 6px 20px !important;
+  border-radius: 50px !important;
+  margin: 0 0 5px 0 !important;
+}
+
+body.theme-minimalist .pitch-slide__eyebrow {
+  border: 1px solid #FFFFFF !important;
+  border-radius: 0px !important;
+}
+
+/* Title Styling */
+.pitch-slide__title {
+  font-family: var(--font-titles);
+  font-size: 3.8em !important;
+  font-weight: 900 !important;
+  color: #FFFFFF !important;
+  text-transform: uppercase;
+  letter-spacing: -2px !important;
+  line-height: 1.0 !important;
+  margin: 5px 0 !important;
+}
+
+body.theme-minimalist .pitch-slide__title {
+  font-weight: 700 !important;
+}
+
+/* Subtitle Styling */
+.pitch-slide__subtitle {
+  font-family: var(--font-titles);
+  font-size: 1.4em !important;
+  font-weight: 600 !important;
+  color: #FFFFFF !important;
+  line-height: 1.4 !important;
+  margin: 0 0 10px 0 !important;
+  max-width: 950px;
+  letter-spacing: 0.5px !important;
+}
+
+body.theme-minimalist .pitch-slide__subtitle {
+  font-weight: 300 !important;
+}
+
+/* Cards Grid Layout */
+.pitch-slide__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+/* In case of 2 cards, limit maximum columns or center them */
+.pitch-slide__grid:has(> :nth-child(2):last-child) {
+  grid-template-columns: repeat(2, minmax(280px, 480px));
+}
+
+/* 4-column responsive grid variant */
+.pitch-slide__grid--4cols {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+}
+
+/* Card Styling */
+.pitch-card {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 16px !important;
+  padding: 24px 20px !important;
+  color: #FFFFFF !important;
+  text-align: left;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              background-color 0.3s ease, 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+body.theme-minimalist .pitch-card {
+  background: transparent !important;
+  border: 1px solid #FFFFFF !important;
+  border-radius: 0px !important;
+}
+
+/* Card Hover Interactions */
+.pitch-card:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-minimalist .pitch-card:hover {
+  background: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+.pitch-card:hover * {
+  color: #FFFFFF !important;
+}
+
+body.theme-minimalist .pitch-card:hover * {
+  color: #000000 !important;
+}
+
+/* Card Number Indicator */
+.pitch-card__number {
+  font-family: var(--font-titles);
+  font-size: 1.5em;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: -0.5px;
+}
+
+/* Card Title */
+.pitch-card__title {
+  font-family: var(--font-titles);
+  font-size: 1.25em !important;
+  font-weight: 800 !important;
+  color: #FFFFFF !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+body.theme-minimalist .pitch-card__title {
+  font-weight: 700 !important;
+}
+
+/* Card Body Text */
+.pitch-card__text {
+  font-size: 0.9em !important;
+  line-height: 1.5 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   CAROUSEL SLIDER (DIMENSIÓN 3)
+   ========================================================================== */
+
+.carousel-container {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  overflow-x: auto;
+  width: 100%;
+  padding: 20px 10px 100px 10px; /* space at the bottom for reflection height */
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari */
+}
+
+.carousel-card {
+  flex: 0 0 350px; /* Fixed card width to allow overflow scroll */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 2px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 16px !important;
+  padding: 24px 20px !important;
+  color: #FFFFFF !important;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+  opacity: 0.45; /* Dimmed when inactive */
+  filter: blur(2.5px); /* Blurish effect when in waiting/inactive state */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              background-color 0.4s ease, 
+              border-color 0.4s ease,
+              box-shadow 0.4s ease,
+              opacity 0.4s ease,
+              filter 0.4s ease !important;
+  /* Mirror reflection effect below each card */
+  -webkit-box-reflect: below 10px linear-gradient(transparent 40%, rgba(255, 255, 255, 0.15));
+}
+
+body.theme-minimalist .carousel-card {
+  background: transparent !important;
+  border: 1px solid #FFFFFF !important;
+  border-radius: 0px !important;
+  -webkit-box-reflect: below 10px linear-gradient(transparent 40%, rgba(255, 255, 255, 0.1));
+}
+
+.carousel-card:hover {
+  opacity: 0.75;
+  filter: blur(0.8px); /* slightly clearer on hover when waiting */
+  transform: translateY(-4px);
+}
+
+/* Active Card State: Enlarges, becomes perfectly clear, and changes color */
+.carousel-card.active-card {
+  transform: scale(1.08) translateY(-10px) !important;
+  opacity: 1 !important;
+  filter: blur(0px) !important; /* perfectly sharp and in focus when at the front */
+  background: #000000 !important; /* Changes color to solid black */
+  border-color: #FFFFFF !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35) !important;
+  z-index: 10;
+}
+
+body.theme-minimalist .carousel-card.active-card {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2) !important;
+}
+
+body.theme-minimalist .carousel-card.active-card * {
+  color: #000000 !important;
+}
+
+body.theme-minimalist .carousel-card.active-card .pitch-card__number {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ==========================================================================
+   3D PRISM DE CITAS (DIMENSIÓN 4 - SLIDE 10)
+   ========================================================================== */
+
+#slide-10 .prism-scene {
+  width: 100%;
+  height: 400px;
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px auto 5px auto;
+  position: relative;
+}
+
+#slide-10 .prism-wrapper {
+  position: relative;
+  width: 300px;
+  height: 380px;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg) rotateX(-4deg);
+  transition: transform 0.35s ease;
+  animation: slide10IdleRotate 16s linear infinite;
+}
+
+#slide-10 .prism-scene:hover .prism-wrapper {
+  animation-play-state: paused;
+}
+
+#slide-10 .prism-face {
+  position: absolute;
+  width: 300px;
+  height: 380px;
+  padding: 20px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #fff176, #facc15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  color: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+body.theme-minimalist #slide-10 .prism-face {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+}
+
+#slide-10 .prism-face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,0.35),
+      transparent 35%,
+      rgba(0,0,0,0.08)
+    );
+  pointer-events: none;
+}
+
+#slide-10 .prism-quote-number {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  color: #3b2f00;
+}
+
+body.theme-minimalist #slide-10 .prism-quote-number {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+#slide-10 .prism-quote-text {
+  position: relative;
+  z-index: 1;
+  font-size: 0.84rem;
+  line-height: 1.48;
+  font-style: italic;
+  font-weight: 500;
+  color: #111111 !important;
+}
+
+#slide-10 .prism-face-1 {
+  transform: rotateY(0deg) translateZ(150px);
+}
+
+#slide-10 .prism-face-2 {
+  transform: rotateY(90deg) translateZ(150px);
+  background: linear-gradient(145deg, #fef3c7, #facc15);
+}
+
+#slide-10 .prism-face-3 {
+  transform: rotateY(180deg) translateZ(150px);
+  background: linear-gradient(145deg, #fde68a, #eab308);
+}
+
+#slide-10 .prism-face-4 {
+  transform: rotateY(270deg) translateZ(150px);
+  background: linear-gradient(145deg, #fff7ad, #f59e0b);
+}
+
+@keyframes slide10IdleRotate {
+  from {
+    transform: rotateY(0deg) rotateX(-4deg);
+  }
+  to {
+    transform: rotateY(360deg) rotateX(-4deg);
+  }
+}
+
+#slide-10 .prism-hint {
+  font-size: 0.85rem;
+  color: #d1d5db;
+  text-align: center;
+  opacity: 0.85;
+  margin-top: 5px;
+}
+
+/* Mobile responsive adjustments for 3D Prism */
+@media (max-width: 768px) {
+  #slide-10 .prism-scene {
+    height: 340px;
+  }
+
+  #slide-10 .prism-wrapper {
+    width: 240px;
+    height: 320px;
+  }
+
+  #slide-10 .prism-face {
+    width: 240px;
+    height: 320px;
+    padding: 15px;
+  }
+
+  #slide-10 .prism-face-1 {
+    transform: rotateY(0deg) translateZ(120px);
+  }
+
+  #slide-10 .prism-face-2 {
+    transform: rotateY(90deg) translateZ(120px);
+  }
+
+  #slide-10 .prism-face-3 {
+    transform: rotateY(180deg) translateZ(120px);
+  }
+
+  #slide-10 .prism-face-4 {
+    transform: rotateY(270deg) translateZ(120px);
+  }
+
+  #slide-10 .prism-quote-text {
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+}
+
+/* ==========================================================================
+   REFLEXION Y DIALOGO (DIAPOSITIVAS 5, 7 Y 9)
+   ========================================================================== */
+
+/* Layouts for the three reflection slides */
+#slide-questions-convivencia .pitch-slide__content {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 50px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+#slide-questions-liderazgo .pitch-slide__content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 50px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+#slide-questions-pedagogica .pitch-slide__content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 50px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Unified Question Cards with blurish-to-sharp hover transitions */
+.question-card {
+  padding: 24px 28px !important;
+  border-left: 6px solid var(--color-primary) !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  margin-bottom: 12px;
+  
+  /* Blurish and translucent by default */
+  filter: blur(1.5px);
+  opacity: 0.55;
+  transform: scale(0.98);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+.question-card h3 {
+  font-family: var(--font-titles);
+  font-size: 1.1em;
+  color: var(--color-primary);
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.question-card p {
+  font-size: 1.02em;
+  line-height: 1.55;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Sharp, enlarged, and highlighted on hover */
+.question-card:hover {
+  filter: blur(0px) !important;
+  opacity: 1 !important;
+  transform: scale(1.03) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.question-card:hover h3 {
+  color: #FFFFFF !important;
+  font-size: 1.22em; /* Enlarged title */
+}
+
+.question-card:hover p {
+  font-size: 1.12em; /* Enlarged paragraph */
+  color: #FFFFFF;
+}
+
+/* Minimalist theme adaptations */
+body.theme-minimalist .question-card {
+  border: 1px solid #000000 !important;
+  border-left: 6px solid #000000 !important;
+  border-radius: 0px !important;
+  filter: none !important;
+  opacity: 0.8 !important;
+  transform: none !important;
+}
+
+body.theme-minimalist .question-card h3 {
+  color: #000000;
+}
+
+body.theme-minimalist .question-card:hover {
+  opacity: 1 !important;
+  transform: scale(1.02) !important;
+  filter: none !important;
+}
+
+body.theme-minimalist .question-card:hover h3 {
+  color: #000000 !important;
+  font-size: 1.18em;
+}
+
+body.theme-minimalist .question-card:hover p {
+  font-size: 1.08em;
+  color: #000000;
+}
+
+/* Illustration Containers */
+#slide-questions-convivencia .question-illustration-container {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 9/16;
+  overflow: hidden;
+  background: transparent;
+  transition: transform var(--transition-speed);
+}
+
+body.theme-minimalist #slide-questions-convivencia .question-illustration-container {
+  border: none;
+  box-shadow: none;
+}
+
+#slide-questions-convivencia .question-illustration-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0;
+  background: transparent;
+}
+
+#slide-questions-liderazgo .question-illustration-container-wide {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1200/896;
+  overflow: hidden;
+  background: transparent;
+  transition: transform var(--transition-speed);
+}
+
+body.theme-minimalist #slide-questions-liderazgo .question-illustration-container-wide {
+  border: none;
+  box-shadow: none;
+}
+
+#slide-questions-liderazgo .question-illustration-container-wide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0;
+  background: transparent;
+}
+
+#slide-questions-pedagogica .question-illustration-container-square {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: transparent;
+  transition: transform var(--transition-speed);
+}
+
+body.theme-minimalist #slide-questions-pedagogica .question-illustration-container-square {
+  border: none;
+  box-shadow: none;
+}
+
+#slide-questions-pedagogica .question-illustration-container-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0;
+  background: transparent;
+}
+
+@media (max-width: 1024px) {
+  #slide-questions-convivencia .pitch-slide__content,
+  #slide-questions-liderazgo .pitch-slide__content,
+  #slide-questions-pedagogica .pitch-slide__content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  #slide-questions-convivencia .question-illustration-container {
+    max-width: 200px;
+    aspect-ratio: 9/16;
+  }
+
+  #slide-questions-liderazgo .question-illustration-container-wide {
+    max-width: 320px;
+    aspect-ratio: 1200/896;
+  }
+
+  #slide-questions-pedagogica .question-illustration-container-square {
+    max-width: 240px;
+    aspect-ratio: 1/1;
+  }
+}
+
+/* ==========================================================================
+   MINIMALIST COVER WITH MAGIC RINGS (DIAPOSITIVA FINAL - FULL SCREEN BACKROUND)
+   ========================================================================== */
+
+#slide-minimalist-cover {
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(135deg, #050505 0%, #111111 100%) !important;
+  background-color: #050505 !important;
+}
+
+#slide-minimalist-cover .slide-bg-grayscale {
+  position: absolute;
+  inset: 0;
+  background-color: transparent; /* Changed from #0d0d0d so mask reveals slide background */
+  background-image: url('Campanil-udec-grayscale.jpg');
+  background-size: cover;
+  background-position: calc(50% + 4cm) center; /* Moved exactly 4cm to the right from center */
+  background-repeat: no-repeat;
+  filter: grayscale(100%) brightness(0.6);
+  z-index: 1;
+  opacity: 1;
+  /* Gradient Mask en el lado izquierdo */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%);
+  mask-image: linear-gradient(to right, transparent 0%, black 25%);
+}
+
+#slide-minimalist-cover .slide-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.35) 100%);
+  z-index: 2;
+}
+
+#slide-minimalist-cover .cover-top-meta {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+
+#slide-minimalist-cover .cover-top-meta img {
+  filter: brightness(0) invert(1) !important;
+}
+
+#magic-rings-mount {
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40%;
+  max-width: 600px;
+  min-width: 320px;
+  height: 620px;
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quote-card {
+    /* 1. Posicionamiento a la izquierda */
+    position: absolute;
+    left: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40%;
+    max-width: 600px;
+    min-width: 320px;
+    padding: 2.5rem;
+
+    /* 2. Efecto Glassmorphism (Liquid Glass) oscuro */
+    background: rgba(20, 20, 20, 0.45); /* Fondo negro translúcido */
+    backdrop-filter: blur(12px); /* El desenfoque del fondo */
+    -webkit-backdrop-filter: blur(12px); /* Soporte para Safari */
+    
+    /* 3. Bordes y Sombras para dar volumen al cristal */
+    border: 1px solid rgba(255, 255, 255, 0.12); /* Borde brillante sutil */
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+    /* 4. Estilos de texto */
+    color: #ffffff;
+    text-align: left;
+    line-height: 1.6;
+    z-index: 10;
+}
+
+.rings-quote-text {
+  font-family: Georgia, serif;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #FAF9F6; /* Ivory white */
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.quote-mark {
+  font-family: Georgia, serif;
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.12);
+  position: absolute;
+  user-select: none;
+}
+
+.open-quote {
+  top: -10px;
+  left: 15px;
+}
+
+.close-quote {
+  bottom: -45px;
+  right: 15px;
+}
+
+@media (max-width: 1024px) {
+  .quote-rings-container {
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 480px;
+    height: 480px;
+  }
+
+  .rings-quote-card {
+    width: 420px;
+    padding: 30px 35px;
+  }
+
+  .rings-quote-text {
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .quote-mark {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .quote-rings-container {
+    width: 380px;
+    height: 380px;
+  }
+
+  .rings-quote-card {
+    width: 320px;
+    padding: 25px 20px;
+  }
+
+  .rings-quote-text {
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+
+  .quote-mark {
+    font-size: 3rem;
+  }
+
+  .open-quote {
+    top: -5px;
+    left: 8px;
+  }
+
+  .close-quote {
+    bottom: -30px;
+    right: 8px;
+  }
+
+  #slide-minimalist-cover .cover-top-meta {
+    top: 20px !important;
+    left: 20px !important;
+    gap: 10px !important;
+  }
+
+  #slide-minimalist-cover .cover-top-meta img {
+    height: 40px !important;
+  }
+
+  #slide-minimalist-cover .project-code {
+    font-size: 0.75em !important;
+  }
+}
+
+.imagen-campanil {
+    /* 1. Hacemos la imagen más grande (90% de la pantalla, se extendió 25% más hacia la izquierda) */
+    width: 90% !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    height: 100vh !important;
+    z-index: 5 !important;
+
+    /* 2. Aplicamos la MÁSCARA DE DEGRADADO (El efecto visual) */
+    /* Va de transparente en el extremo izquierdo a negro (sólido) hacia la derecha */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%);
+    mask-image: linear-gradient(to right, transparent 0%, black 25%);
+}
