@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set up carousel interactivity
     setupCarouselInteractivity();
 
+    // Set up pitch cards interactivity (Slide 4)
+    setupPitchCardInteractivity();
+
     // Set up 3D prism interactivity
     setupPrismInteractivity();
 
@@ -74,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Trigger custom slide animations
     triggerSlideAnimations(index);
+
+    // Initialize MagicRings only when the final slide is active
+    setupMagicRings();
   }
 
   function nextSlide() {
@@ -259,6 +265,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Interactivity for Slide 4 Pitch Cards
+  function setupPitchCardInteractivity() {
+    const pitchCards = document.querySelectorAll('#slide-4 .pitch-card');
+    pitchCards.forEach(card => {
+      card.addEventListener('click', () => {
+        // Remove active class from all cards in Slide 4
+        pitchCards.forEach(c => c.classList.remove('active-card'));
+        // Add active class to clicked card
+        card.classList.add('active-card');
+      });
+    });
+  }
+
   // Interactivity for Slide 10 3D Prism
   function setupPrismInteractivity() {
     const scene = document.getElementById("slide10-scene");
@@ -300,10 +319,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setupMagicRings() {
     const mount = document.getElementById('magic-rings-mount');
+    const activeSlide = document.querySelector('.slide.active');
+    const isCampanilSlide = activeSlide?.dataset.magicRings === 'true';
+
     if (!mount) return;
+
+    if (!isCampanilSlide) {
+      mount.innerHTML = '';
+      delete mount.dataset.initialized;
+      return;
+    }
 
     if (typeof THREE === 'undefined') {
       console.error('Three.js is not loaded');
+      return;
+    }
+
+    if (mount.dataset.initialized === 'true') {
       return;
     }
 
@@ -458,9 +490,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const animate = (t) => {
       frameId = requestAnimationFrame(animate);
 
-      // CPU optimization: only render when the minimalist cover slide is active
+      // CPU optimization: only render when the campanil slide is active
       const activeSlide = document.querySelector('.slide.active');
-      if (!activeSlide || activeSlide.id !== 'slide-minimalist-cover') {
+      const isCampanilSlide = activeSlide?.dataset.magicRings === 'true';
+      if (!isCampanilSlide) {
         return;
       }
 
@@ -480,6 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
     frameId = requestAnimationFrame(animate);
+    mount.dataset.initialized = 'true';
   }
 
   // Initialize
